@@ -1,0 +1,206 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+
+# Production builds
+build/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# CDK
+cdk.out/
+*.js.map
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache
+.parcel-cache
+.eslintcache
+
+# Storybook
+storybook-static
+
+# Temporary
+tmp/
+temp/
+
+# Supabase volumes
+infra/compose/supabase/volumes/db/data/
+infra/compose/supabase/volumes/storage/
+
+# Build/Cache directories
+.turbo/
+
+# AI/Development tools
+.claude/
+.amazonq/
+genai_issues/
+
+# Forge uploads
+services/forge/uploads/
+api/forge/uploads/
+
+# Dataverse exports
+.dataverse-export/
+tools/monitoring/faro-agent/release/builder-debug.yml
+tools/monitoring/faro-agent/release/Faro Agent-1.0.0-arm64.dmg
+tools/monitoring/faro-agent/release/Faro Agent-1.0.0-arm64.dmg.blockmap
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/PkgInfo
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Electron Framework
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Helpers
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Libraries
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Resources
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libEGL.dylib
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/vk_swiftshader_icd.json
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_100_percent.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_200_percent.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/icudtl.dat
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/resources.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/v8_context_snapshot.arm64.bin
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/af.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/am.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ar.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bg.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bn.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ca.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/cs.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/da.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/de.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/el.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en_GB.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es_419.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/et.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fa.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fi.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fil.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fr.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/gu.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/he.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hi.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hr.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hu.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/id.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/it.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ja.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/kn.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ko.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lt.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lv.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ml.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/mr.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ms.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nb.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nl.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pl.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_BR.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_PT.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ro.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ru.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sk.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sl.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sr.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sv.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sw.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ta.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/te.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/th.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/tr.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/uk.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ur.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/vi.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_CN.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_TW.lproj/locale.pak
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (GPU).app/Contents/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (GPU).app/Contents/PkgInfo
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (GPU).app/Contents/MacOS/Faro Agent Helper (GPU)
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Plugin).app/Contents/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Plugin).app/Contents/PkgInfo
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Plugin).app/Contents/MacOS/Faro Agent Helper (Plugin)
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Renderer).app/Contents/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Renderer).app/Contents/PkgInfo
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper (Renderer).app/Contents/MacOS/Faro Agent Helper (Renderer)
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper.app/Contents/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper.app/Contents/PkgInfo
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Faro Agent Helper.app/Contents/MacOS/Faro Agent Helper
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Mantle.framework/Mantle
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Mantle.framework/Resources
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Mantle.framework/Versions/Current
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Mantle.framework/Versions/A/Mantle
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Mantle.framework/Versions/A/Resources/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/ReactiveObjC.framework/ReactiveObjC
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/ReactiveObjC.framework/Resources
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/ReactiveObjC
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/Resources/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Resources
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Squirrel
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Versions/Current
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Versions/A/Squirrel
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/Info.plist
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/MacOS/Faro Agent
+tools/monitoring/faro-agent/release/mac-arm64/Faro Agent.app/Contents/Resources/app-update.yml
+.kiro/context/README.md
+.kiro/context/standards-original.md.backup
+.kiro/context/backend/authentication.md
+.kiro/context/backend/dto-validation.md
+.kiro/context/backend/mapper-pattern.md
+.kiro/context/backend/migrations.md
+.kiro/context/backend/naming-conventions.md
+.kiro/context/backend/repository-pattern.md
+.kiro/context/backend/service-pattern.md
+.kiro/context/frontend/component-creation.md
+.kiro/context/frontend/mui-usage.md
+.kiro/context/frontend/routing-standards.md
+.kiro/context/frontend/storybook-standards.md
+.kiro/context/frontend/zustand-pattern.md
+.kiro/context/genai/critical-rules.md
+.kiro/context/genai/iteration-limits.md
+.kiro/context/shared/code-generation.md
+.kiro/context/shared/contributing-to-packages.md
+.kiro/context/shared/workspace-dependencies.md
+.kiro/settings/lsp.json

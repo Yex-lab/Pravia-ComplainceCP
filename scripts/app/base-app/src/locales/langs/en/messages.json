@@ -1,0 +1,7 @@
+{
+  "languageSwitch": {
+    "loading": "Switching language...",
+    "success": "Language changed successfully",
+    "error": "Failed to change language"
+  }
+}

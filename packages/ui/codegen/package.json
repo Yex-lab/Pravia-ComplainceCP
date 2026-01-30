@@ -1,0 +1,23 @@
+{
+  "name": "@asyml8/codegen",
+  "version": "1.0.0",
+  "description": "Code generator CLI for creating components, services, and pages",
+  "main": "index.js",
+  "bin": {
+    "asyml8-codegen": "./index.js",
+    "codegen": "./index.js"
+  },
+  "keywords": ["codegen", "cli", "react", "nextjs", "typescript"],
+  "author": "Pravia Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "index.js",
+    "templates/",
+    "templates.manifest.json",
+    "codegen.config.js",
+    "README.md"
+  ]
+}

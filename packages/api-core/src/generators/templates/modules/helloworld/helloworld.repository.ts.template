@@ -1,0 +1,160 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import { HelloWorldItem } from './entity/helloworld-item.entity';
+import { HelloWorldSummaryView } from './entity/helloworld-summary.view';
+import { HelloWorldStatsView } from './entity/helloworld-stats-materialized.view';
+import { CreateHelloWorldItemDto, UpdateHelloWorldItemDto, HelloWorldQueryDto } from './dto/helloworld.dto';
+
+@Injectable()
+export class HelloWorldRepository {
+  constructor(
+    @InjectRepository(HelloWorldItem)
+    private readonly itemRepository: Repository<HelloWorldItem>,
+    @InjectRepository(HelloWorldSummaryView)
+    private readonly summaryViewRepository: Repository<HelloWorldSummaryView>,
+    @InjectRepository(HelloWorldStatsView)
+    private readonly statsViewRepository: Repository<HelloWorldStatsView>,
+  ) {}
+
+  // ==================== CRUD Operations ====================
+
+  async create(createDto: CreateHelloWorldItemDto): Promise<HelloWorldItem> {
+    const item = this.itemRepository.create(createDto);
+    return this.itemRepository.save(item);
+  }
+
+  async findAll(queryDto: HelloWorldQueryDto): Promise<{ items: HelloWorldItem[]; total: number }> {
+    const queryBuilder = this.buildQuery(queryDto);
+    
+    const [items, total] = await queryBuilder
+      .skip((queryDto.page - 1) * queryDto.limit)
+      .take(queryDto.limit)
+      .getManyAndCount();
+
+    return { items, total };
+  }
+
+  async findOne(id: string): Promise<HelloWorldItem> {
+    return this.itemRepository.findOne({ where: { id } });
+  }
+
+  async update(id: string, updateDto: UpdateHelloWorldItemDto): Promise<HelloWorldItem> {
+    await this.itemRepository.update(id, updateDto);
+    return this.findOne(id);
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.itemRepository.softDelete(id);
+  }
+
+  async restore(id: string): Promise<HelloWorldItem> {
+    await this.itemRepository.restore(id);
+    return this.itemRepository.findOne({ 
+      where: { id },
+      withDeleted: true 
+    });
+  }
+
+  // ==================== View Queries ====================
+
+  /**
+   * Get real-time summary data using regular view
+   * This always returns current data but may be slower for large datasets
+   */
+  async getSummary(category?: string): Promise<HelloWorldSummaryView[]> {
+    const queryBuilder = this.summaryViewRepository.createQueryBuilder('summary');
+    
+    if (category) {
+      queryBuilder.where('summary.category = :category', { category });
+    }
+    
+    return queryBuilder
+      .orderBy('summary.total_items', 'DESC')
+      .getMany();
+  }
+
+  /**
+   * Get analytics data from materialized view
+   * This is much faster but data may be stale (depends on refresh frequency)
+   */
+  async getStats(
+    category?: string, 
+    startDate?: Date, 
+    endDate?: Date
+  ): Promise<HelloWorldStatsView[]> {
+    const queryBuilder = this.statsViewRepository.createQueryBuilder('stats');
+    
+    if (category) {
+      queryBuilder.andWhere('stats.category = :category', { category });
+    }
+    
+    if (startDate) {
+      queryBuilder.andWhere('stats.date >= :startDate', { startDate });
+    }
+    
+    if (endDate) {
+      queryBuilder.andWhere('stats.date <= :endDate', { endDate });
+    }
+    
+    return queryBuilder
+      .orderBy('stats.date', 'DESC')
+      .addOrderBy('stats.category', 'ASC')
+      .getMany();
+  }
+
+  /**
+   * Refresh the materialized view to get latest data
+   * Call this after significant data changes or on a schedule
+   */
+  async refreshMaterializedView(): Promise<void> {
+    await this.statsViewRepository.query(
+      'REFRESH MATERIALIZED VIEW helloworld_stats_materialized_view'
+    );
+  }
+
+  // ==================== Advanced Queries ====================
+
+  async getTopCategories(limit: number = 5): Promise<any[]> {
+    return this.summaryViewRepository
+      .createQueryBuilder('summary')
+      .orderBy('summary.total_items', 'DESC')
+      .limit(limit)
+      .getMany();
+  }
+
+  async getTrendAnalysis(days: number = 30): Promise<any[]> {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    
+    return this.statsViewRepository
+      .createQueryBuilder('stats')
+      .where('stats.date >= :startDate', { startDate })
+      .andWhere('stats.daily_change IS NOT NULL')
+      .orderBy('stats.date', 'DESC')
+      .getMany();
+  }
+
+  // ==================== Helper Methods ====================
+
+  private buildQuery(queryDto: HelloWorldQueryDto): SelectQueryBuilder<HelloWorldItem> {
+    const queryBuilder = this.itemRepository.createQueryBuilder('item');
+
+    if (queryDto.category) {
+      queryBuilder.andWhere('item.category = :category', { category: queryDto.category });
+    }
+
+    if (queryDto.status) {
+      queryBuilder.andWhere('item.status = :status', { status: queryDto.status });
+    }
+
+    if (queryDto.search) {
+      queryBuilder.andWhere(
+        '(item.name ILIKE :search OR item.description ILIKE :search)',
+        { search: `%${queryDto.search}%` }
+      );
+    }
+
+    return queryBuilder.orderBy('item.createdAt', 'DESC');
+  }
+}

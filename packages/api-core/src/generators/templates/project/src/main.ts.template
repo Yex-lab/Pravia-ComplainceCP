@@ -1,0 +1,76 @@
+import { NestFactory } from '@nestjs/core';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerUI, ASCII_ART } from '@asyml8/api-core';
+import { join } from 'path';
+
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter({ logger: false })
+  );
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    })
+  );
+
+  app.setGlobalPrefix('api');
+
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
+  await app.register(require('@fastify/static'), {
+    root: join(__dirname, '..', 'public'),
+    prefix: '/',
+  });
+
+  const config = new DocumentBuilder()
+    .setTitle('{{API_TITLE}}')
+    .setDescription('{{DESCRIPTION}}')
+    .setVersion('1.0.0'){{#if includeSupabase}}
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'Authorization',
+      description: 'Enter your Supabase JWT token',
+      in: 'header',
+    }){{/if}}
+    .addTag('Application', 'Basic application information and metadata endpoints')
+    .addTag('Health', 'System health monitoring endpoints')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  
+  const swaggerUI = new SwaggerUI('http://localhost:{{PORT}}', {
+    customSiteTitle: '{{API_TITLE}} Documentation',
+    topbarIconFilename: 'logo.svg',
+    persistAuthorization: true,
+    wavyGradient: {
+      enabled: true,
+      colors: ['#E67E22', '#5DADE2', '#2E86AB'],
+      height: '60px',
+      waveHeight: '25px',
+    },
+  });
+  
+  SwaggerModule.setup('{{SWAGGER_PATH}}', app, document, swaggerUI.customOptions);
+
+  const port = {{PORT}};
+  await app.listen(port, '0.0.0.0');
+
+  console.log(ASCII_ART.ASYML8);
+  console.log(`🚀 Server running on http://localhost:${port}/api`);
+  console.log(`📚 Swagger docs: http://localhost:${port}/{{SWAGGER_PATH}}`);
+}
+
+bootstrap().catch(console.error);

@@ -1,0 +1,81 @@
+import { ViewEntity, ViewColumn } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+
+/**
+ * HelloWorldSummaryView - Regular Database View
+ * 
+ * This is a REGULAR VIEW that provides a real-time summary of items by category.
+ * Regular views are virtual tables that execute the underlying query each time they're accessed.
+ * 
+ * Characteristics:
+ * - Always shows current data (real-time)
+ * - No storage overhead (virtual)
+ * - Query executes on every access
+ * - Automatically reflects changes in base tables
+ * - Good for: Real-time reporting, simple aggregations, frequently changing data
+ * 
+ * Use Cases:
+ * - Dashboard summaries that need current data
+ * - Simple aggregations over small datasets
+ * - When data consistency is critical
+ * 
+ * Performance:
+ * - Slower for complex queries (executes every time)
+ * - No additional storage required
+ * - Performance depends on underlying table size and indexes
+ */
+@ViewEntity({
+  name: 'helloworld_summary_view',
+  expression: `
+    SELECT 
+      category,
+      COUNT(*) as total_items,
+      COUNT(CASE WHEN status = 'active' THEN 1 END) as active_items,
+      COUNT(CASE WHEN status = 'inactive' THEN 1 END) as inactive_items,
+      COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending_items,
+      AVG(price) as average_price,
+      SUM(quantity) as total_quantity,
+      MIN(created_at) as first_item_date,
+      MAX(updated_at) as last_updated
+    FROM helloworld_items 
+    WHERE deleted_at IS NULL
+    GROUP BY category
+  `
+})
+export class HelloWorldSummaryView {
+  @ApiProperty({ description: 'Item category' })
+  @ViewColumn()
+  category: string;
+
+  @ApiProperty({ description: 'Total number of items in category' })
+  @ViewColumn()
+  total_items: number;
+
+  @ApiProperty({ description: 'Number of active items' })
+  @ViewColumn()
+  active_items: number;
+
+  @ApiProperty({ description: 'Number of inactive items' })
+  @ViewColumn()
+  inactive_items: number;
+
+  @ApiProperty({ description: 'Number of pending items' })
+  @ViewColumn()
+  pending_items: number;
+
+  @ApiProperty({ description: 'Average price in category' })
+  @ViewColumn()
+  average_price: number;
+
+  @ApiProperty({ description: 'Total quantity in category' })
+  @ViewColumn()
+  total_quantity: number;
+
+  @ApiProperty({ description: 'Date of first item in category' })
+  @ViewColumn()
+  first_item_date: Date;
+
+  @ApiProperty({ description: 'Last update in category' })
+  @ViewColumn()
+  last_updated: Date;
+}

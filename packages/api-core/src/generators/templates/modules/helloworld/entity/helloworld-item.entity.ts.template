@@ -1,0 +1,67 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+
+/**
+ * HelloWorldItem Entity
+ * 
+ * This is a standard database table that stores individual items.
+ * Each item has a name, description, category, and status.
+ * 
+ * Features:
+ * - Soft delete support (deletedAt column)
+ * - Automatic timestamps (createdAt, updatedAt)
+ * - Full CRUD operations
+ */
+@Entity('helloworld_items')
+export class HelloWorldItem {
+  @ApiProperty({ description: 'Unique identifier' })
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ApiProperty({ description: 'Item name', example: 'Sample Item' })
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
+
+  @ApiProperty({ description: 'Item description', example: 'This is a sample item' })
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
+  @ApiProperty({ description: 'Item category', example: 'electronics' })
+  @Column({ type: 'varchar', length: 100 })
+  category: string;
+
+  @ApiProperty({ description: 'Item status', example: 'active' })
+  @Column({ 
+    type: 'enum', 
+    enum: ['active', 'inactive', 'pending'],
+    default: 'active'
+  })
+  status: 'active' | 'inactive' | 'pending';
+
+  @ApiProperty({ description: 'Item price', example: 29.99 })
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  price: number;
+
+  @ApiProperty({ description: 'Item quantity', example: 100 })
+  @Column({ type: 'integer', default: 0 })
+  quantity: number;
+
+  @ApiProperty({ description: 'Creation timestamp' })
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @ApiProperty({ description: 'Last update timestamp' })
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ApiProperty({ description: 'Soft delete timestamp' })
+  @DeleteDateColumn()
+  deletedAt: Date;
+}

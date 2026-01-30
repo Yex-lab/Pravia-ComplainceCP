@@ -1,0 +1,5876 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": {
+      "get": {
+        "operationId": "AppController_getAppInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Application information retrieved successfully"
+          }
+        },
+        "summary": "Get application information",
+        "tags": [
+          "Application"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "SimpleHealthController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "System health status"
+          }
+        },
+        "summary": "Get overall system health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/health/memory": {
+      "get": {
+        "operationId": "SimpleHealthController_getMemoryHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Memory health status"
+          }
+        },
+        "summary": "Get memory health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/contacts": {
+      "post": {
+        "operationId": "ContactsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContactDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Contact created successfully"
+          },
+          "400": {
+            "description": "Invalid request body"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create new contact",
+        "tags": [
+          "Contacts"
+        ]
+      },
+      "get": {
+        "operationId": "ContactsController_findAll",
+        "parameters": [
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "description": "OData filter expression",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "select",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of fields",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "required": false,
+            "in": "query",
+            "description": "Max records to return",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "Records to skip",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "expand",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated list of related entities to expand",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ContactResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List contacts",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/with-permissions": {
+      "post": {
+        "description": "Creates a new contact and assigns optional roles and document types in a single operation",
+        "operationId": "ContactsController_createWithPermissions",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContactWithPermissionsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactWithPermissionsResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Contact created with permissions successfully"
+          },
+          "400": {
+            "description": "Invalid request body or permission assignment failed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create contact with permissions",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/invite-primary": {
+      "post": {
+        "description": "Creates a new primary contact in Dataverse linked to an organization and sends an invitation email by creating a user in Supabase. The user will receive an email with a link to set their password and verify their account.",
+        "operationId": "ContactsController_inviteContact",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "description": "Contact invitation details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InviteContactDto"
+              },
+              "examples": {
+                "example1": {
+                  "summary": "Invite new contact",
+                  "value": {
+                    "fullName": "John Smith",
+                    "email": "john.smith@example.com",
+                    "organizationId": "e3fd67a2-605f-f011-bec3-0022480b413d"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Contact created and invitation sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 201,
+                    "body": {
+                      "contact": {
+                        "contactid": "a9387372-84ab-f011-bbd3-6045bd0859f5",
+                        "fullname": "John Smith",
+                        "emailaddress1": "john.smith@example.com"
+                      },
+                      "invitation": {
+                        "sent": true,
+                        "email": "john.smith@example.com",
+                        "supabaseUserId": "550e8400-e29b-41d4-a716-446655440000"
+                      }
+                    },
+                    "message": "Contact created and invitation sent successfully"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email address - Supabase invitation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": "Email address is not valid",
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Contact with this email already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 409,
+                    "message": "Contact with email john.smith@example.com already exists",
+                    "error": "Conflict"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Invite primary contact for organization",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/by-email/{email}": {
+      "get": {
+        "description": "Retrieves a contact from Dataverse by email and optionally returns organization info.",
+        "operationId": "ContactsController_findByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "description": "Contact email address",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get contact by email",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/by-account/{accountId}": {
+      "get": {
+        "operationId": "ContactsController_findByAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "description": "Account ID to filter contacts",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ContactResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get contacts by account ID",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/{id}": {
+      "get": {
+        "description": "Retrieves a single contact from Dataverse by its unique contact ID (contactid). If no contact exists with the provided ID, a 404 Not Found response is returned.",
+        "operationId": "ContactsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Contact ID (Dataverse contactid)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get contact by ID",
+        "tags": [
+          "Contacts"
+        ]
+      },
+      "put": {
+        "operationId": "ContactsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContactWithPermissionsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactWithPermissionsResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update contact with permissions",
+        "tags": [
+          "Contacts"
+        ]
+      },
+      "delete": {
+        "operationId": "ContactsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete contact",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/contacts/portal": {
+      "get": {
+        "operationId": "ContactsController_portalList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ContactResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal view of contacts",
+        "tags": [
+          "Contacts"
+        ]
+      },
+      "post": {
+        "operationId": "ContactsController_portalCreate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContactDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/ContactResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal contact registration",
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/api/admin/test-config": {
+      "get": {
+        "description": "Returns the current Dataverse configuration (without secrets)",
+        "operationId": "AdminController_testConfig",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Configuration retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Test configuration",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/admin/whoami": {
+      "get": {
+        "description": "Returns information about the current authenticated user",
+        "operationId": "AdminController_whoAmI",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get current user info",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/admin/environment": {
+      "get": {
+        "description": "Returns information about the Dataverse environment",
+        "operationId": "AdminController_getEnvironmentInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Environment information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get environment info",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/submissions/by-account/{accountId}": {
+      "get": {
+        "operationId": "SubmissionsController_getByAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submissions by account ID",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/by-contact/{contactId}": {
+      "get": {
+        "operationId": "SubmissionsController_getByContact",
+        "parameters": [
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submissions by contact ID",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/{id}/status": {
+      "get": {
+        "operationId": "SubmissionsController_getStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/SubmissionStatusResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submission document extraction status",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions": {
+      "get": {
+        "operationId": "SubmissionsController_list",
+        "parameters": [
+          {
+            "name": "top",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List all submissions",
+        "tags": [
+          "Submissions"
+        ]
+      },
+      "post": {
+        "operationId": "SubmissionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/SubmissionDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create new submission",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/with-contact": {
+      "get": {
+        "operationId": "SubmissionsController_findWithContact",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submissions with primary contact relationship",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/with-all-relations": {
+      "get": {
+        "operationId": "SubmissionsController_findWithAllRelations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submissions with document type, contact, and organization relationships",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/portal": {
+      "get": {
+        "operationId": "SubmissionsController_portalList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal view of submissions",
+        "tags": [
+          "Submissions"
+        ]
+      },
+      "post": {
+        "operationId": "SubmissionsController_portalCreate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/SubmissionDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal form submission",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/{id}": {
+      "get": {
+        "operationId": "SubmissionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/SubmissionDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get submission by ID",
+        "tags": [
+          "Submissions"
+        ]
+      },
+      "put": {
+        "operationId": "SubmissionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/SubmissionDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update submission",
+        "tags": [
+          "Submissions"
+        ]
+      },
+      "delete": {
+        "operationId": "SubmissionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete submission",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/with-file": {
+      "post": {
+        "operationId": "SubmissionsController_createWithFile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "File to upload"
+                  },
+                  "prvc_name": {
+                    "type": "string",
+                    "example": "Compliance Document Submission"
+                  },
+                  "prvc_account": {
+                    "type": "string",
+                    "example": "e3fd67a2-605f-f011-bec3-0022480b413d"
+                  },
+                  "prvc_primarycontact": {
+                    "type": "string",
+                    "example": "a9387372-84ab-f011-bbd3-6045bd0859f5"
+                  },
+                  "prvc_documenttype": {
+                    "type": "string",
+                    "example": "696cf76c-4a5f-f011-bec3-0022480b413d"
+                  }
+                },
+                "required": [
+                  "file",
+                  "prvc_name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create submission with file attachment",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/portal/with-file": {
+      "post": {
+        "operationId": "SubmissionsController_portalCreateWithFile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/portal/supporting-files": {
+      "post": {
+        "operationId": "SubmissionsController_portalUploadSupporting",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/SubmissionDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/submissions/{id}/upload": {
+      "post": {
+        "operationId": "SubmissionsController_uploadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "File to upload"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload file to existing submission",
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/api/document-urls/submission/{submissionId}": {
+      "get": {
+        "description": "Retrieve the document attachment for a specific submission. Returns base64 encoded document data.",
+        "operationId": "DocumentUrlsController_getDocumentBySubmissionId",
+        "parameters": [
+          {
+            "name": "submissionId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the submission",
+            "schema": {
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document data with base64 content, or null if no document found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUrlDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get document by submission ID",
+        "tags": [
+          "Document URLs"
+        ]
+      }
+    },
+    "/api/designees": {
+      "get": {
+        "description": "Retrieve all designees. Optionally filter by organization ID using query parameter.",
+        "operationId": "DesigneesController_findAll",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Filter designees by organization ID",
+            "schema": {
+              "example": "e3fd67a2-605f-f011-bec3-0022480b413d",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of designees with enriched document type names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DesigneeDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all designees",
+        "tags": [
+          "Designees"
+        ]
+      }
+    },
+    "/api/designees/organization/{organizationId}": {
+      "get": {
+        "description": "Retrieve all designees for a specific organization with enriched document type information",
+        "operationId": "DesigneesController_findByOrganization",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the organization",
+            "schema": {
+              "example": "e3fd67a2-605f-f011-bec3-0022480b413d",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of designees for the specified organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DesigneeDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get designees by organization",
+        "tags": [
+          "Designees"
+        ]
+      }
+    },
+    "/api/designees/{id}": {
+      "get": {
+        "description": "Retrieve a single designee by their unique identifier with enriched document type information",
+        "operationId": "DesigneesController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Unique identifier of the designee",
+            "schema": {
+              "example": "12cf43ea-7fea-f011-8544-6045bd0859f5",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Designee details with document type name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DesigneeDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get designee by ID",
+        "tags": [
+          "Designees"
+        ]
+      }
+    },
+    "/api/document-types": {
+      "get": {
+        "operationId": "DocumentTypesController_list",
+        "parameters": [
+          {
+            "name": "top",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/DocumentTypeDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List all document types",
+        "tags": [
+          "Document Types"
+        ]
+      },
+      "post": {
+        "operationId": "DocumentTypesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDocumentTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/DocumentTypeDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create new document type",
+        "tags": [
+          "Document Types"
+        ]
+      }
+    },
+    "/api/document-types/active": {
+      "get": {
+        "operationId": "DocumentTypesController_getActive",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/DocumentTypeDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get active document types for lookups",
+        "tags": [
+          "Document Types"
+        ]
+      }
+    },
+    "/api/document-types/portal": {
+      "get": {
+        "operationId": "DocumentTypesController_portalList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/DocumentTypeDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal view of document types",
+        "tags": [
+          "Document Types"
+        ]
+      }
+    },
+    "/api/document-types/{id}": {
+      "get": {
+        "operationId": "DocumentTypesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/DocumentTypeDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get document type by ID",
+        "tags": [
+          "Document Types"
+        ]
+      },
+      "put": {
+        "operationId": "DocumentTypesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDocumentTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/DocumentTypeDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update document type",
+        "tags": [
+          "Document Types"
+        ]
+      },
+      "delete": {
+        "operationId": "DocumentTypesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete document type",
+        "tags": [
+          "Document Types"
+        ]
+      }
+    },
+    "/api/attachments": {
+      "get": {
+        "operationId": "AttachmentsController_list",
+        "parameters": [
+          {
+            "name": "top",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Object"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List all attachments",
+        "tags": [
+          "Attachments"
+        ]
+      },
+      "post": {
+        "operationId": "AttachmentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttachmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload new attachment",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/by-submission/{submissionId}": {
+      "get": {
+        "operationId": "AttachmentsController_getBySubmission",
+        "parameters": [
+          {
+            "name": "submissionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get primary + supporting documents for a submission from Notes",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/by-parent/{objectId}/{objectType}": {
+      "get": {
+        "operationId": "AttachmentsController_getByParent",
+        "parameters": [
+          {
+            "name": "objectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectType",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Object"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get attachments for a specific parent record",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/portal/{objectId}/{objectType}": {
+      "get": {
+        "operationId": "AttachmentsController_portalView",
+        "parameters": [
+          {
+            "name": "objectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectType",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Object"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal view of attachments for a parent record",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/{id}": {
+      "get": {
+        "operationId": "AttachmentsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get attachment by ID (includes file content)",
+        "tags": [
+          "Attachments"
+        ]
+      },
+      "delete": {
+        "operationId": "AttachmentsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete attachment",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/{annotationId}/download": {
+      "get": {
+        "operationId": "AttachmentsController_download",
+        "parameters": [
+          {
+            "name": "annotationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/upload/{objectId}/{objectType}": {
+      "post": {
+        "operationId": "AttachmentsController_uploadFile",
+        "parameters": [
+          {
+            "name": "objectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectType",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload file for a specific record",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/portal/upload/{objectId}/{objectType}": {
+      "post": {
+        "operationId": "AttachmentsController_portalUploadFile",
+        "parameters": [
+          {
+            "name": "objectId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectType",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal file upload for a specific record",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/attachments/portal": {
+      "post": {
+        "operationId": "AttachmentsController_portalUpload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttachmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Portal file upload",
+        "tags": [
+          "Attachments"
+        ]
+      }
+    },
+    "/api/accounts/backend/test-complete/{id}": {
+      "get": {
+        "operationId": "AccountsController_testComplete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Account ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Test complete account data",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      }
+    },
+    "/api/accounts/backend": {
+      "get": {
+        "operationId": "AccountsController_list",
+        "parameters": [
+          {
+            "name": "top",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "List all accounts",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      },
+      "post": {
+        "operationId": "AccountsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create new account",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      }
+    },
+    "/api/accounts/backend/complete/{id}": {
+      "get": {
+        "operationId": "AccountsController_findCompleteAccount",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Account ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get complete account data with all lookup relationships",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      }
+    },
+    "/api/accounts": {
+      "get": {
+        "operationId": "AccountsController_portalList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Portal view of organizations",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      },
+      "post": {
+        "operationId": "AccountsController_portalCreate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Portal organization registration",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      }
+    },
+    "/api/accounts/with-contacts": {
+      "get": {
+        "operationId": "AccountsController_findWithContacts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get accounts with their primary contacts and related contacts",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      }
+    },
+    "/api/accounts/{id}/with-contacts": {
+      "get": {
+        "operationId": "AccountsController_findOneWithContacts",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Account ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/AccountDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get account by ID with primary contact and related contacts",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      }
+    },
+    "/api/accounts/{id}": {
+      "get": {
+        "operationId": "AccountsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Account ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "complete",
+            "required": false,
+            "in": "query",
+            "description": "Include all lookup relationships",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/AccountDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get account by ID",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      },
+      "put": {
+        "operationId": "AccountsController_portalUpdate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Portal organization update",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      }
+    },
+    "/api/accounts/{id}/primary-contact": {
+      "put": {
+        "operationId": "AccountsController_setPrimaryContact",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Account ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetPrimaryContactDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/AccountDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Set or clear the organization primary contact",
+        "tags": [
+          "Accounts",
+          "Accounts"
+        ]
+      }
+    },
+    "/api/accounts/backend/{id}": {
+      "put": {
+        "operationId": "AccountsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update account",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      },
+      "delete": {
+        "description": "PROTECTED: Cannot delete State organizations or organizations with UID1/UID2. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "AccountsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "[TEST ONLY] Delete account",
+        "tags": [
+          "Accounts",
+          "Accounts - Backend"
+        ]
+      }
+    },
+    "/api/public/accounts": {
+      "get": {
+        "operationId": "RegisterController_publicList",
+        "parameters": [
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Public list of accounts for registration",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/similar": {
+      "get": {
+        "operationId": "RegisterController_findSimilar",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "query",
+            "description": "Organization name to search for",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find organizations with similar names",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/register/create": {
+      "post": {
+        "description": "Submit a registration request for a new organization. Validates organization type, checks for duplicates, and creates a pending registration request. Optionally attach supporting documents via multipart/form-data.",
+        "operationId": "RegisterController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/RegisterResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Registration request submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data or validation errors"
+          },
+          "409": {
+            "description": "Organization already exists"
+          }
+        },
+        "summary": "Register new organization",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/register/request-access": {
+      "post": {
+        "description": "Submit a request to join an existing organization. Validates organization exists and creates a pending access request. Optionally attach supporting documents via multipart/form-data.",
+        "operationId": "RegisterController_requestAccess",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/RegisterResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Access request submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        },
+        "summary": "Request access to existing organization",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/organization": {
+      "post": {
+        "deprecated": true,
+        "description": "Use POST /register instead. This endpoint will be removed in a future version.",
+        "operationId": "RegisterController_registerOrganization",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/RegisterResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "New organization request submitted successfully",
+            "schema": {
+              "example": {
+                "statusCode": 201,
+                "body": {
+                  "id": "1a435231-84ab-f011-aa43-000d3a3b0972",
+                  "firstName": "Jane",
+                  "lastName": "Smith",
+                  "email": "jane.smith@neworg.com",
+                  "status": "Pending"
+                },
+                "message": "New organization request submitted successfully"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 400,
+                    "message": [
+                      "email must be an email",
+                      "organizationName should not be empty"
+                    ],
+                    "error": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "An organization with this name already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "statusCode": 409,
+                    "message": "An organization with this name already exists",
+                    "error": "Conflict"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "[DEPRECATED] Register new organization",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/register/supporting-files": {
+      "post": {
+        "description": "Add supporting documents to an existing registration request",
+        "operationId": "RegisterController_uploadSupportingFiles",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "registrationId",
+                  "files"
+                ],
+                "properties": {
+                  "registrationId": {
+                    "type": "string",
+                    "description": "Registration request ID"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Supporting documents to upload"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Supporting files uploaded successfully"
+          }
+        },
+        "summary": "Upload supporting files to existing registration",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/public/accounts/{id}/test-upload": {
+      "post": {
+        "description": "Test document upload. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "RegisterController_testUpload",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document uploaded successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Upload document to register record",
+        "tags": [
+          "Public"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/register-records": {
+      "post": {
+        "description": "Delete register records within timeframe. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupRegisterRecords",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupRegisterRecordsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Records deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete register process records",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/accounts-missing-codes": {
+      "post": {
+        "description": "Delete accounts missing prv_uid1 or prv_uid2 within timeframe for a specific organization. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupAccountsMissingCodes",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Accounts deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete accounts missing UID codes",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/submissions": {
+      "post": {
+        "description": "Delete submissions within timeframe for a specific organization. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupSubmissions",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Submissions deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete submissions",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/supabase-users": {
+      "post": {
+        "description": "Delete Supabase users created within timeframe for a specific organization. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupSupabaseUsers",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Supabase users deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete Supabase users",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/contacts": {
+      "post": {
+        "description": "Delete all contacts for a specific organization. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupContacts",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contacts deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete contacts for organization",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/designees": {
+      "post": {
+        "description": "Delete all designees for a specific organization. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupDesignees",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Designees deleted successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Delete designees for organization",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/organization-data-count": {
+      "post": {
+        "description": "Returns count of all data associated with an organization (submissions, register records, contacts). Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_getOrganizationDataCount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Data counts retrieved successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Get data counts for organization",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/test-only/cleanup/organization-complete": {
+      "post": {
+        "description": "Delete all data within timeframe: submissions, register records, Supabase users, and organizations. When organizationId is null, deletes ALL records. When includeAllStatuses is false, only deletes pending register records. Only available when ENABLE_TEST_ENDPOINTS=true",
+        "operationId": "TestOnlyController_cleanupOrganizationComplete",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleanupOrganizationCompleteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization cleanup completed successfully"
+          }
+        },
+        "summary": "[TEST ONLY] Complete organization cleanup",
+        "tags": [
+          "Test Only - Cleanup"
+        ]
+      }
+    },
+    "/api/organization-members/roles": {
+      "get": {
+        "operationId": "OrganizationContactRoleController_findAll",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactRoleDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all organization contact roles",
+        "tags": [
+          "Organization Members"
+        ]
+      },
+      "post": {
+        "operationId": "OrganizationContactRoleController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationContactRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/OrganizationContactRoleDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create organization contact role assignment",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/roles/organization/{organizationId}": {
+      "get": {
+        "operationId": "OrganizationContactRoleController_findByOrganization",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactRoleDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all roles for an organization",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/roles/organization/{organizationId}/contact/{contactId}": {
+      "get": {
+        "operationId": "OrganizationContactRoleController_findByOrganizationAndContact",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactRoleDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get roles for a specific contact in an organization",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/roles/{id}": {
+      "get": {
+        "operationId": "OrganizationContactRoleController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Role assignment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/OrganizationContactRoleDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get organization contact role by ID",
+        "tags": [
+          "Organization Members"
+        ]
+      },
+      "delete": {
+        "operationId": "OrganizationContactRoleController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Role assignment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete organization contact role assignment",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/documents": {
+      "get": {
+        "operationId": "OrganizationContactDocumentController_findAll",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all organization contact documents",
+        "tags": [
+          "Organization Members"
+        ]
+      },
+      "post": {
+        "operationId": "OrganizationContactDocumentController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrganizationContactDocumentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create organization contact document assignment",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/documents/organization/{organizationId}": {
+      "get": {
+        "operationId": "OrganizationContactDocumentController_findByOrganization",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all documents for an organization",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/documents/organization/{organizationId}/contact/{contactId}": {
+      "get": {
+        "operationId": "OrganizationContactDocumentController_findByOrganizationAndContact",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "path",
+            "description": "Organization ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "description": "Contact ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get documents for a specific contact in an organization",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    },
+    "/api/organization-members/documents/{id}": {
+      "get": {
+        "operationId": "OrganizationContactDocumentController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Document assignment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get organization contact document by ID",
+        "tags": [
+          "Organization Members"
+        ]
+      },
+      "delete": {
+        "operationId": "OrganizationContactDocumentController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Document assignment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete organization contact document assignment",
+        "tags": [
+          "Organization Members"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Pravia Flux API",
+    "description": "Flux Microsoft Dataverse API for Pravia ecosystem",
+    "version": "1.0.216",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Application",
+      "description": "Basic application information and metadata endpoints"
+    },
+    {
+      "name": "Health",
+      "description": "System health monitoring endpoints"
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "Authorization",
+        "description": "Enter your JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "EntityResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "OK"
+          },
+          "statusDescription": {
+            "type": "string",
+            "example": "The request succeeded"
+          },
+          "body": {
+            "type": "object",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "statusCode",
+          "statusMessage",
+          "body",
+          "message"
+        ]
+      },
+      "ContactResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Full name"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "businessPhoneExtension": {
+            "type": "string",
+            "description": "Business phone extension"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "Mobile phone"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "organization": {
+            "type": "object",
+            "description": "Organization details"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CreateContactDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact"
+          },
+          "businessPhoneExtension": {
+            "type": "string",
+            "description": "Business phone extension"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "Mobile phone"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title of the contact"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "phone",
+          "jobTitle"
+        ]
+      },
+      "OrganizationContactRoleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "roleId": {
+            "type": "string",
+            "description": "Role ID"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "organizationId",
+          "contactId",
+          "roleId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "OrganizationContactDocumentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document Type ID"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "organizationId",
+          "contactId",
+          "documentTypeId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ContactWithPermissionsResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Full name"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "businessPhoneExtension": {
+            "type": "string",
+            "description": "Business phone extension"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "Mobile phone"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "organization": {
+            "type": "object",
+            "description": "Organization details"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          },
+          "organizationRoles": {
+            "description": "Organization roles assigned to the contact",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganizationContactRoleDto"
+            }
+          },
+          "organizationDocuments": {
+            "description": "Organization document types assigned to the contact",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganizationContactDocumentDto"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CreateContactWithPermissionsDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact"
+          },
+          "businessPhoneExtension": {
+            "type": "string",
+            "description": "Business phone extension"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "Mobile phone"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title of the contact"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "roleIds": {
+            "description": "Array of role IDs to assign to the contact",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "documentTypeIds": {
+            "description": "Array of document type IDs to assign to the contact",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "phone",
+          "jobTitle"
+        ]
+      },
+      "InviteContactDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Full name of the contact (will be split into first and last name)",
+            "example": "John Smith"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact - must be unique",
+            "example": "john.smith@example.com"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID (account ID) to link the contact to",
+            "example": "7b0b5495-605f-f011-bec3-0022480b413d"
+          }
+        },
+        "required": [
+          "fullName",
+          "email",
+          "organizationId"
+        ]
+      },
+      "EntityListResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "OK"
+          },
+          "statusDescription": {
+            "type": "string",
+            "example": "The request succeeded"
+          },
+          "body": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "statusCode",
+          "statusMessage",
+          "body",
+          "message"
+        ]
+      },
+      "UpdateContactWithPermissionsDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the contact"
+          },
+          "businessPhoneExtension": {
+            "type": "string",
+            "description": "Business phone extension"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "Mobile phone"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title of the contact"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "roleIds": {
+            "description": "Array of role IDs to assign to the contact (null to leave unchanged, empty array to remove all)",
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "documentTypeIds": {
+            "description": "Array of document type IDs to assign to the contact (null to leave unchanged, empty array to remove all)",
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SubmissionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Submission ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Submission name"
+          },
+          "stateCode": {
+            "type": "number",
+            "description": "State code"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "Status code"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document type ID"
+          },
+          "primaryContact": {
+            "type": "object",
+            "description": "Primary contact details"
+          },
+          "documentType": {
+            "type": "object",
+            "description": "Document type details"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "SubmissionStatusResponseDto": {
+        "type": "object",
+        "properties": {
+          "submissionId": {
+            "type": "string",
+            "description": "Submission ID",
+            "example": "97d5d1b0-05e5-f011-8544-6045bd0859f5"
+          },
+          "name": {
+            "type": "string",
+            "description": "Submission name",
+            "example": "Compliance Document Submission"
+          },
+          "documentStatus": {
+            "type": "string",
+            "description": "Document extraction status",
+            "example": "Extraction completed",
+            "enum": [
+              "Extraction process initiated",
+              "Validating document organization",
+              "Extracting the document",
+              "Analyzing the document",
+              "Saving information",
+              "Extraction completed",
+              "Error"
+            ]
+          },
+          "modifiedon": {
+            "type": "string",
+            "description": "Last modified date",
+            "example": "2025-10-17T18:17:40.000Z"
+          }
+        },
+        "required": [
+          "submissionId"
+        ]
+      },
+      "CreateSubmissionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Submission name"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document type ID"
+          }
+        }
+      },
+      "UpdateSubmissionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Submission name"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document type ID"
+          }
+        }
+      },
+      "Object": {
+        "type": "object",
+        "properties": {}
+      },
+      "DocumentDataDto": {
+        "type": "object",
+        "properties": {
+          "base64": {
+            "type": "string",
+            "description": "Base64 encoded document content",
+            "example": "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoK..."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Original filename of the document",
+            "example": "submission-document.pdf"
+          },
+          "mimetype": {
+            "type": "string",
+            "description": "MIME type of the document",
+            "example": "application/pdf",
+            "enum": [
+              "application/pdf",
+              "image/png",
+              "image/jpeg",
+              "application/msword",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ]
+          }
+        },
+        "required": [
+          "base64",
+          "filename",
+          "mimetype"
+        ]
+      },
+      "DocumentUrlDto": {
+        "type": "object",
+        "properties": {
+          "documentUrl": {
+            "type": "string",
+            "description": "Document URL (null when returning base64 data)",
+            "nullable": true,
+            "example": null
+          },
+          "documentData": {
+            "description": "Document data with base64 content and metadata",
+            "example": {
+              "base64": "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoK...",
+              "filename": "submission-document.pdf",
+              "mimetype": "application/pdf"
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DocumentDataDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "documentUrl"
+        ]
+      },
+      "DesigneeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Designee ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Designee name"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document type ID"
+          },
+          "documentTypeName": {
+            "type": "string",
+            "description": "Document type name"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdOn",
+          "modifiedOn"
+        ]
+      },
+      "DocumentTypeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document type ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Document type name"
+          },
+          "stateCode": {
+            "type": "number",
+            "description": "State code"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "Status code"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CreateDocumentTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Document type name"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateDocumentTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Document type name"
+          }
+        }
+      },
+      "CreateAttachmentDto": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "Subject/title"
+          },
+          "filename": {
+            "type": "string",
+            "description": "File name"
+          },
+          "mimetype": {
+            "type": "string",
+            "description": "MIME type"
+          },
+          "documentbody": {
+            "type": "string",
+            "description": "Base64 encoded file content"
+          },
+          "objectid_prvc_submission@odata.bind": {
+            "type": "string",
+            "description": "Related submission OData bind",
+            "example": "/prvc_submissions(guid)"
+          },
+          "objecttypecode": {
+            "type": "string",
+            "description": "Related record type"
+          },
+          "notetext": {
+            "type": "string",
+            "description": "Note text"
+          },
+          "isdocument": {
+            "type": "boolean",
+            "description": "Is document flag"
+          }
+        },
+        "required": [
+          "filename",
+          "mimetype",
+          "documentbody"
+        ]
+      },
+      "AccountDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Account ID",
+            "example": "f63a6f9c-605f-f011-bec3-0022480b413d"
+          },
+          "name": {
+            "type": "string",
+            "description": "Organization name",
+            "example": "California Secretary of State"
+          },
+          "acronym": {
+            "type": "string",
+            "description": "Organization acronym",
+            "example": "SOS"
+          },
+          "orgCode": {
+            "type": "string",
+            "description": "Organization code (UID1)",
+            "example": "0890"
+          },
+          "govCode": {
+            "type": "string",
+            "description": "Government code (UID2)",
+            "example": "11000"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "parentAccountId": {
+            "type": "string",
+            "description": "Parent account ID"
+          },
+          "parentOrganization": {
+            "type": "object",
+            "description": "Parent organization details"
+          },
+          "complianceDueDate": {
+            "type": "string",
+            "description": "Compliance due date"
+          },
+          "socEmailAddress": {
+            "type": "string",
+            "description": "SOC email address"
+          },
+          "categoryCode": {
+            "type": "number",
+            "description": "Organization category code (1=State, 2=County, 895080001=Local, 895080002=Tribal)",
+            "example": 1
+          },
+          "category": {
+            "type": "string",
+            "description": "Organization category label",
+            "example": "State"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "Primary address line 1"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Primary address line 2"
+          },
+          "city": {
+            "type": "string",
+            "description": "Primary address city"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Primary address postal code"
+          },
+          "state": {
+            "type": "string",
+            "description": "Primary address state"
+          },
+          "county": {
+            "type": "string",
+            "description": "Primary address county"
+          },
+          "mailingAddressLine1": {
+            "type": "string",
+            "description": "Mailing address line 1"
+          },
+          "mailingAddressLine2": {
+            "type": "string",
+            "description": "Mailing address line 2"
+          },
+          "mailingCity": {
+            "type": "string",
+            "description": "Mailing address city"
+          },
+          "mailingPostalCode": {
+            "type": "string",
+            "description": "Mailing address postal code"
+          },
+          "mailingState": {
+            "type": "string",
+            "description": "Mailing address state"
+          },
+          "mailingCounty": {
+            "type": "string",
+            "description": "Mailing address county"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "SetPrimaryContactDto": {
+        "type": "object",
+        "properties": {
+          "primaryContactId": {
+            "type": "string",
+            "description": "Contact ID to set as primary contact. Null removes primary contact.",
+            "nullable": true
+          }
+        }
+      },
+      "CreateAccountDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Organization name"
+          },
+          "acronym": {
+            "type": "string",
+            "description": "Organization acronym"
+          },
+          "orgCode": {
+            "type": "string",
+            "description": "Organization code (UID1)"
+          },
+          "govCode": {
+            "type": "string",
+            "description": "Government code (UID2)"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "parentAccountId": {
+            "type": "string",
+            "description": "Parent account ID"
+          },
+          "complianceDueDate": {
+            "type": "string",
+            "description": "Compliance due date"
+          },
+          "socEmailAddress": {
+            "type": "string",
+            "description": "SOC email address"
+          },
+          "categoryCode": {
+            "type": "number",
+            "description": "Organization category code"
+          },
+          "organizationType": {
+            "type": "number",
+            "description": "Organization type"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "Primary address line 1"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Primary address line 2"
+          },
+          "city": {
+            "type": "string",
+            "description": "Primary address city"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Primary address postal code"
+          },
+          "state": {
+            "type": "string",
+            "description": "Primary address state"
+          },
+          "county": {
+            "type": "string",
+            "description": "Primary address county"
+          },
+          "mailingAddressLine1": {
+            "type": "string",
+            "description": "Mailing address line 1"
+          },
+          "mailingAddressLine2": {
+            "type": "string",
+            "description": "Mailing address line 2"
+          },
+          "mailingCity": {
+            "type": "string",
+            "description": "Mailing address city"
+          },
+          "mailingPostalCode": {
+            "type": "string",
+            "description": "Mailing address postal code"
+          },
+          "mailingState": {
+            "type": "string",
+            "description": "Mailing address state"
+          },
+          "mailingCounty": {
+            "type": "string",
+            "description": "Mailing address county"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL"
+          }
+        }
+      },
+      "UpdateAccountDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Organization name"
+          },
+          "acronym": {
+            "type": "string",
+            "description": "Organization acronym"
+          },
+          "orgCode": {
+            "type": "string",
+            "description": "Organization code (UID1)"
+          },
+          "govCode": {
+            "type": "string",
+            "description": "Government code (UID2)"
+          },
+          "primaryContactId": {
+            "type": "string",
+            "description": "Primary contact ID"
+          },
+          "parentAccountId": {
+            "type": "string",
+            "description": "Parent account ID"
+          },
+          "complianceDueDate": {
+            "type": "string",
+            "description": "Compliance due date"
+          },
+          "socEmailAddress": {
+            "type": "string",
+            "description": "SOC email address"
+          },
+          "categoryCode": {
+            "type": "number",
+            "description": "Organization category code"
+          },
+          "organizationType": {
+            "type": "number",
+            "description": "Organization type"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "Primary address line 1"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Primary address line 2"
+          },
+          "city": {
+            "type": "string",
+            "description": "Primary address city"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Primary address postal code"
+          },
+          "state": {
+            "type": "string",
+            "description": "Primary address state"
+          },
+          "county": {
+            "type": "string",
+            "description": "Primary address county"
+          },
+          "mailingAddressLine1": {
+            "type": "string",
+            "description": "Mailing address line 1"
+          },
+          "mailingAddressLine2": {
+            "type": "string",
+            "description": "Mailing address line 2"
+          },
+          "mailingCity": {
+            "type": "string",
+            "description": "Mailing address city"
+          },
+          "mailingPostalCode": {
+            "type": "string",
+            "description": "Mailing address postal code"
+          },
+          "mailingState": {
+            "type": "string",
+            "description": "Mailing address state"
+          },
+          "mailingCounty": {
+            "type": "string",
+            "description": "Mailing address county"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number"
+          },
+          "website": {
+            "type": "string",
+            "description": "Website URL"
+          }
+        }
+      },
+      "RegisterResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registration request ID",
+            "example": "1a435231-84ab-f011-aa43-000d3a3b0972"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "john.doe@example.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "Request status",
+            "example": "Pending",
+            "enum": [
+              "Pending",
+              "Approved",
+              "Denied"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "status"
+        ]
+      },
+      "RegisterOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "organizationType": {
+            "type": "number",
+            "description": "Organization type",
+            "enum": [
+              448150000,
+              448150001,
+              448150002,
+              448150003
+            ],
+            "example": 448150000
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Smith"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "jane.smith@neworg.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "(555) 987-6543"
+          },
+          "businessPhone": {
+            "type": "string",
+            "description": "Business phone with optional extension",
+            "example": "(555) 987-6543 ext 456"
+          },
+          "organizationName": {
+            "type": "string",
+            "description": "Organization name",
+            "example": "Acme Corporation"
+          },
+          "acronym": {
+            "type": "string",
+            "description": "Organization acronym (required for State entities)",
+            "example": "ACME"
+          },
+          "orgCode": {
+            "type": "string",
+            "description": "Organization code / UID1 (required for State entities)",
+            "example": "ORG001"
+          },
+          "govCode": {
+            "type": "string",
+            "description": "Government code / UID2 (required for State entities)",
+            "example": "GOV001"
+          },
+          "parentOrganizationId": {
+            "type": "string",
+            "description": "Parent organization ID (required for State entities)",
+            "example": "213b6f9c-605f-f011-bec3-0022480b413d"
+          },
+          "county": {
+            "type": "string",
+            "description": "County",
+            "example": "Los Angeles"
+          },
+          "organizationPhone": {
+            "type": "string",
+            "description": "Organization main phone",
+            "example": "(555) 100-2000"
+          },
+          "website": {
+            "type": "string",
+            "description": "Organization website",
+            "example": "https://www.acmecorp.com"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number",
+            "example": "(555) 100-2001"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "Physical address line 1",
+            "example": "123 Main Street"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Physical address line 2",
+            "example": "Suite 100"
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "example": "Los Angeles"
+          },
+          "state": {
+            "type": "string",
+            "description": "State (2-letter code)",
+            "example": "CA"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Zip code",
+            "example": "90001"
+          },
+          "mailingAddressLine1": {
+            "type": "string",
+            "description": "Mailing address line 1",
+            "example": "PO Box 12345"
+          },
+          "mailingAddressLine2": {
+            "type": "string",
+            "description": "Mailing address line 2"
+          },
+          "mailingCity": {
+            "type": "string",
+            "description": "Mailing city",
+            "example": "Los Angeles"
+          },
+          "mailingState": {
+            "type": "string",
+            "description": "Mailing state (2-letter code)",
+            "example": "CA"
+          },
+          "mailingZipCode": {
+            "type": "string",
+            "description": "Mailing zip code",
+            "example": "90002"
+          },
+          "mailingCounty": {
+            "type": "string",
+            "description": "Mailing county",
+            "example": "Los Angeles"
+          },
+          "documentFileNames": {
+            "description": "Document file names (if uploaded)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acceptedTerms": {
+            "type": "boolean",
+            "description": "User accepted terms of service",
+            "example": true
+          },
+          "acceptedPrivacyPolicy": {
+            "type": "boolean",
+            "description": "User accepted privacy policy (if configured)",
+            "example": true
+          }
+        },
+        "required": [
+          "organizationType",
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "businessPhone",
+          "organizationName",
+          "acceptedTerms"
+        ]
+      },
+      "AccessRequestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Organization ID",
+            "example": "1a435231-84ab-f011-aa43-000d3a3b0972"
+          },
+          "orgCode": {
+            "type": "string",
+            "description": "Organization code / UID1",
+            "example": "ORG001"
+          },
+          "govCode": {
+            "type": "string",
+            "description": "Government code / UID2",
+            "example": "GOV001"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Smith"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "jane.smith@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "(555) 987-6543"
+          },
+          "businessPhone": {
+            "type": "string",
+            "description": "Business phone with optional extension",
+            "example": "(555) 987-6543 ext 456"
+          },
+          "acceptedTerms": {
+            "type": "boolean",
+            "description": "User accepted terms of service",
+            "example": true
+          },
+          "acceptedPrivacyPolicy": {
+            "type": "boolean",
+            "description": "User accepted privacy policy (if configured)",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "businessPhone",
+          "acceptedTerms"
+        ]
+      },
+      "CleanupRegisterRecordsDto": {
+        "type": "object",
+        "properties": {
+          "minutes": {
+            "type": "number",
+            "description": "Timeframe in minutes (default: 60)",
+            "example": 60,
+            "default": 60
+          },
+          "deleteAll": {
+            "type": "boolean",
+            "description": "Delete all statuses (default: false, only pending)",
+            "example": false,
+            "default": false
+          }
+        }
+      },
+      "CleanupOrganizationDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID",
+            "example": "c3ccf32b-615f-f011-bec3-0022480b413d"
+          }
+        },
+        "required": [
+          "organizationId"
+        ]
+      },
+      "CleanupOrganizationCompleteDto": {
+        "type": "object",
+        "properties": {
+          "minutes": {
+            "type": "number",
+            "description": "Timeframe in minutes (default: 60)",
+            "example": 60,
+            "default": 60
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID to cleanup. When null or omitted, deletes ALL organizations within timeframe.",
+            "example": "c3ccf32b-615f-f011-bec3-0022480b413d"
+          },
+          "includeAllStatuses": {
+            "type": "boolean",
+            "description": "Include all register record statuses (default: true). When false, only deletes pending (448150002) records. When true, deletes all statuses (pending, approved, rejected).",
+            "example": true,
+            "default": true
+          }
+        }
+      },
+      "CreateOrganizationContactRoleDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "roleId": {
+            "type": "string",
+            "description": "Role ID"
+          }
+        },
+        "required": [
+          "organizationId",
+          "contactId",
+          "roleId"
+        ]
+      },
+      "CreateOrganizationContactDocumentDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "description": "Organization ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "documentTypeId": {
+            "type": "string",
+            "description": "Document Type ID"
+          }
+        },
+        "required": [
+          "organizationId",
+          "contactId",
+          "documentTypeId"
+        ]
+      }
+    }
+  }
+}

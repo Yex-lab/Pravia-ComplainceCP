@@ -1,0 +1,141 @@
+config:
+  target: 'http://localhost:{{PORT}}'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 10
+      name: "Ramp up load"
+    - duration: 300
+      arrivalRate: 15
+      name: "Sustained load"
+  variables:
+    categories:
+      - "electronics"
+      - "books"
+      - "clothing"
+      - "home"
+      - "sports"
+    statuses:
+      - "active"
+      - "inactive"
+      - "pending"
+
+scenarios:
+  - name: "Health Check Flow"
+    weight: 10
+    flow:
+      - get:
+          url: "/api/health"
+          expect:
+            - statusCode: 200
+
+  - name: "HelloWorld CRUD Flow"
+    weight: 40
+    flow:
+      # Get all items
+      - get:
+          url: "/api/helloworld"
+          qs:
+            page: 1
+            limit: 10
+          expect:
+            - statusCode: 200
+
+      # Get items by category
+      - get:
+          url: "/api/helloworld"
+          qs:
+            category: "{{ $randomPick(categories) }}"
+            page: 1
+            limit: 5
+          expect:
+            - statusCode: 200
+
+      # Search items
+      - get:
+          url: "/api/helloworld"
+          qs:
+            search: "test"
+            page: 1
+            limit: 10
+          expect:
+            - statusCode: 200
+
+  - name: "Analytics Flow"
+    weight: 30
+    flow:
+      # Get real-time summary
+      - get:
+          url: "/api/helloworld/analytics/summary"
+          expect:
+            - statusCode: 200
+
+      # Get materialized view stats
+      - get:
+          url: "/api/helloworld/analytics/stats"
+          expect:
+            - statusCode: 200
+
+      # Get top categories
+      - get:
+          url: "/api/helloworld/analytics/top-categories"
+          qs:
+            limit: 5
+          expect:
+            - statusCode: 200
+
+      # Get trend analysis
+      - get:
+          url: "/api/helloworld/analytics/trends"
+          qs:
+            days: 7
+          expect:
+            - statusCode: 200
+
+  - name: "Create and Update Flow"
+    weight: 20
+    flow:
+      # Create new item
+      - post:
+          url: "/api/helloworld"
+          headers:
+            Authorization: "Bearer {{ $env.TEST_JWT_TOKEN }}"
+          json:
+            name: "Load Test Item {{ $randomString() }}"
+            description: "Created during load test"
+            category: "{{ $randomPick(categories) }}"
+            status: "{{ $randomPick(statuses) }}"
+            price: "{{ $randomNumber(10, 1000) }}"
+            quantity: "{{ $randomNumber(1, 100) }}"
+          capture:
+            - json: "$.id"
+              as: "itemId"
+          expect:
+            - statusCode: 201
+
+      # Get the created item
+      - get:
+          url: "/api/helloworld/{{ itemId }}"
+          expect:
+            - statusCode: 200
+
+      # Update the item
+      - patch:
+          url: "/api/helloworld/{{ itemId }}"
+          headers:
+            Authorization: "Bearer {{ $env.TEST_JWT_TOKEN }}"
+          json:
+            name: "Updated Load Test Item"
+            price: "{{ $randomNumber(10, 1000) }}"
+          expect:
+            - statusCode: 200
+
+      # Soft delete the item
+      - delete:
+          url: "/api/helloworld/{{ itemId }}"
+          headers:
+            Authorization: "Bearer {{ $env.TEST_JWT_TOKEN }}"
+          expect:
+            - statusCode: 204

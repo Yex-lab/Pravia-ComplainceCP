@@ -1,0 +1,82 @@
+# {{API_TITLE}}
+
+{{DESCRIPTION}}
+
+## 🚀 Features
+
+- **[NestJS](https://nestjs.com/) + [Fastify](https://fastify.dev/)** - High-performance framework
+- **[TypeORM](https://typeorm.io/) + [PostgreSQL](https://postgresql.org/)** - Robust database layer
+- **API Documentation** - Auto-generated [Swagger](https://swagger.io/)/OpenAPI docs
+- **Health Monitoring** - System health and performance endpoints
+- **Modern Linting** - [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
+- **Comprehensive Testing** - [Jest](https://jestjs.io/) unit and E2E tests
+
+## 📋 Prerequisites
+
+- Node.js 20+
+- PostgreSQL 14+
+- pnpm 9+
+
+## 🛠️ Installation
+
+```bash
+# Install dependencies
+pnpm install
+
+# Copy environment variables
+cp .env.example .env
+
+# Configure your environment variables in .env
+```
+
+## 🚀 Development
+
+```bash
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start:prod
+```
+
+## 🗄️ Database
+
+```bash
+# Generate migration
+pnpm migration:generate
+
+# Run migrations
+pnpm migration:run
+
+# Revert migration
+pnpm migration:revert
+```
+
+## 🧪 Testing
+
+```bash
+# Run unit tests
+pnpm test
+
+# Run E2E tests
+pnpm test:e2e
+
+# Run with coverage
+pnpm test:cov
+```
+
+## 📚 Documentation
+
+Once the server is running, visit:
+- **Swagger UI**: `http://localhost:{{PORT}}/{{SWAGGER_PATH}}`
+- **API**: `http://localhost:{{PORT}}/api`
+
+## 🏥 Health Checks
+
+Monitor system health at:
+- **Overall Health**: `GET /api/health`
+- **Database Health**: `GET /api/health/database`
+- **Memory Health**: `GET /api/health/memory`

@@ -1,0 +1,29 @@
+{
+  "name": "aws-resources-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for checking latest AWS resources and best practices for infrastructure building",
+  "type": "module",
+  "main": "aws-resources-mcp.js",
+  "bin": {
+    "aws-resources-mcp": "./aws-resources-mcp.js"
+  },
+  "scripts": {
+    "start": "node ./aws-resources-mcp.js"
+  },
+  "keywords": [
+    "mcp",
+    "amazon-q",
+    "cli",
+    "aws",
+    "infrastructure",
+    "resources",
+    "cdk",
+    "cloudformation"
+  ],
+  "author": "Pravia Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "minimist": "^1.2.8"
+  }
+}

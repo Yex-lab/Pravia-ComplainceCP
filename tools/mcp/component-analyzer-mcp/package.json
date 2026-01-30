@@ -1,0 +1,23 @@
+{
+  "name": "@asyml8/component-analyzer-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for analyzing and tracking component reusability",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "component-analyzer-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "glob": "^11.0.0",
+    "typescript": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}

@@ -1,0 +1,184 @@
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { HelloWorldRepository } from './helloworld.repository';
+import { CreateHelloWorldItemDto, UpdateHelloWorldItemDto, HelloWorldQueryDto } from './dto/helloworld.dto';
+import { HelloWorldItem } from './entity/helloworld-item.entity';
+
+@Injectable()
+export class HelloWorldService {
+  private readonly logger = new Logger(HelloWorldService.name);
+
+  constructor(private readonly repository: HelloWorldRepository) {}
+
+  // ==================== CRUD Operations ====================
+
+  async create(createDto: CreateHelloWorldItemDto): Promise<HelloWorldItem> {
+    this.logger.log(`Creating new item: ${createDto.name}`);
+    const item = await this.repository.create(createDto);
+    
+    // Refresh materialized view after creating items
+    // In production, you might want to batch this or do it less frequently
+    await this.refreshStatsIfNeeded();
+    
+    return item;
+  }
+
+  async findAll(queryDto: HelloWorldQueryDto) {
+    this.logger.log(`Finding items with filters: ${JSON.stringify(queryDto)}`);
+    const { items, total } = await this.repository.findAll(queryDto);
+    
+    const totalPages = Math.ceil(total / queryDto.limit);
+    
+    return {
+      items,
+      pagination: {
+        page: queryDto.page,
+        limit: queryDto.limit,
+        total,
+        totalPages,
+        hasNext: queryDto.page < totalPages,
+        hasPrev: queryDto.page > 1,
+      },
+    };
+  }
+
+  async findOne(id: string): Promise<HelloWorldItem> {
+    this.logger.log(`Finding item by id: ${id}`);
+    const item = await this.repository.findOne(id);
+    
+    if (!item) {
+      throw new NotFoundException(`Item with ID ${id} not found`);
+    }
+    
+    return item;
+  }
+
+  async update(id: string, updateDto: UpdateHelloWorldItemDto): Promise<HelloWorldItem> {
+    this.logger.log(`Updating item ${id} with: ${JSON.stringify(updateDto)}`);
+    
+    // Check if item exists
+    await this.findOne(id);
+    
+    const updatedItem = await this.repository.update(id, updateDto);
+    
+    // Refresh materialized view after updates
+    await this.refreshStatsIfNeeded();
+    
+    return updatedItem;
+  }
+
+  async remove(id: string): Promise<void> {
+    this.logger.log(`Soft deleting item: ${id}`);
+    
+    // Check if item exists
+    await this.findOne(id);
+    
+    await this.repository.remove(id);
+    
+    // Refresh materialized view after deletion
+    await this.refreshStatsIfNeeded();
+  }
+
+  async restore(id: string): Promise<HelloWorldItem> {
+    this.logger.log(`Restoring item: ${id}`);
+    const restoredItem = await this.repository.restore(id);
+    
+    if (!restoredItem) {
+      throw new NotFoundException(`Item with ID ${id} not found or not deleted`);
+    }
+    
+    // Refresh materialized view after restoration
+    await this.refreshStatsIfNeeded();
+    
+    return restoredItem;
+  }
+
+  // ==================== Analytics & Reporting ====================
+
+  /**
+   * Get real-time summary using regular view
+   * Always current but potentially slower
+   */
+  async getSummary(category?: string) {
+    this.logger.log(`Getting real-time summary for category: ${category || 'all'}`);
+    return this.repository.getSummary(category);
+  }
+
+  /**
+   * Get analytics from materialized view
+   * Faster but potentially stale data
+   */
+  async getStats(category?: string, startDate?: Date, endDate?: Date) {
+    this.logger.log(`Getting stats from materialized view for category: ${category || 'all'}`);
+    return this.repository.getStats(category, startDate, endDate);
+  }
+
+  /**
+   * Get top performing categories
+   */
+  async getTopCategories(limit: number = 5) {
+    this.logger.log(`Getting top ${limit} categories`);
+    return this.repository.getTopCategories(limit);
+  }
+
+  /**
+   * Get trend analysis for the last N days
+   */
+  async getTrendAnalysis(days: number = 30) {
+    this.logger.log(`Getting trend analysis for last ${days} days`);
+    return this.repository.getTrendAnalysis(days);
+  }
+
+  /**
+   * Manual refresh of materialized view
+   * Use this when you need the latest data immediately
+   */
+  async refreshMaterializedView(): Promise<void> {
+    this.logger.log('Manually refreshing materialized view');
+    await this.repository.refreshMaterializedView();
+  }
+
+  // ==================== Scheduled Tasks ====================
+
+  /**
+   * Automatically refresh materialized view every hour
+   * This keeps the analytics data reasonably fresh
+   * 
+   * In production, you might want to:
+   * - Run this less frequently (every 6 hours, daily)
+   * - Run during off-peak hours
+   * - Use a separate worker process
+   */
+  @Cron(CronExpression.EVERY_HOUR)
+  async scheduledMaterializedViewRefresh() {
+    try {
+      this.logger.log('Running scheduled materialized view refresh');
+      await this.repository.refreshMaterializedView();
+      this.logger.log('Scheduled materialized view refresh completed');
+    } catch (error) {
+      this.logger.error('Failed to refresh materialized view', error);
+    }
+  }
+
+  // ==================== Helper Methods ====================
+
+  /**
+   * Conditionally refresh materialized view
+   * Only refresh if it hasn't been refreshed recently
+   */
+  private async refreshStatsIfNeeded(): Promise<void> {
+    // In a real application, you might want to:
+    // 1. Check when the view was last refreshed
+    // 2. Only refresh if it's been more than X minutes
+    // 3. Use a queue system for batch processing
+    
+    // For this example, we'll refresh on every change
+    // In production, consider batching or using a job queue
+    try {
+      await this.repository.refreshMaterializedView();
+    } catch (error) {
+      this.logger.warn('Failed to refresh materialized view', error);
+      // Don't throw - this shouldn't break the main operation
+    }
+  }
+}

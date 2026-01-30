@@ -1,0 +1,22 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { HelloWorldController } from './helloworld.controller';
+import { HelloWorldService } from './helloworld.service';
+import { HelloWorldRepository } from './helloworld.repository';
+import { HelloWorldItem } from './entity/helloworld-item.entity';
+import { HelloWorldSummaryView } from './entity/helloworld-summary.view';
+import { HelloWorldStatsView } from './entity/helloworld-stats-materialized.view';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      HelloWorldItem,
+      HelloWorldSummaryView,
+      HelloWorldStatsView,
+    ]),
+  ],
+  controllers: [HelloWorldController],
+  providers: [HelloWorldService, HelloWorldRepository],
+  exports: [HelloWorldService],
+})
+export class HelloWorldModule {}

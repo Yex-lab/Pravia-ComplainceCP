@@ -1,0 +1,18 @@
+<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .brand-text {
+        font-family: 'Helvetica Neue', 'Segoe UI', 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 18px;
+        text-anchor: start;
+        dominant-baseline: central;
+        fill: #ffffff;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </defs>
+  
+  <!-- FARO | PRAVIA -->
+  <text x="5" y="20" class="brand-text">FARO | PRAVIA</text>
+</svg>

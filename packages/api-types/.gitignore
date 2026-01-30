@@ -1,0 +1,9 @@
+# Build output
+dist/
+*.tsbuildinfo
+
+# Temp files
+temp/
+
+# Note: src/api/ and src/index.ts are checked in
+# Run 'pnpm generate:dev' to update when API changes

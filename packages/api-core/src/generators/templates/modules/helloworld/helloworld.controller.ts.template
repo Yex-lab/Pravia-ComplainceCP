@@ -1,0 +1,213 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiQuery,
+} from '@nestjs/swagger';
+import { HelloWorldService } from './helloworld.service';
+import { CreateHelloWorldItemDto, UpdateHelloWorldItemDto, HelloWorldQueryDto } from './dto/helloworld.dto';
+import { HelloWorldItem } from './entity/helloworld-item.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Public } from '@asyml8/api-core';
+
+/**
+ * HelloWorld Controller
+ * 
+ * This controller demonstrates a complete CRUD API with:
+ * - Standard CRUD operations
+ * - Real-time analytics using regular views
+ * - Performance analytics using materialized views
+ * - Pagination and filtering
+ * - Soft delete and restore functionality
+ */
+@ApiTags('HelloWorld - CRUD Example')
+@Controller('helloworld')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
+export class HelloWorldController {
+  constructor(private readonly helloWorldService: HelloWorldService) {}
+
+  // ==================== CRUD Operations ====================
+
+  @Post()
+  @ApiOperation({ 
+    summary: 'Create a new item',
+    description: 'Creates a new HelloWorld item. After creation, the materialized view is refreshed to include the new data in analytics.'
+  })
+  @ApiResponse({ status: 201, description: 'Item created successfully', type: HelloWorldItem })
+  async create(@Body() createDto: CreateHelloWorldItemDto): Promise<HelloWorldItem> {
+    return this.helloWorldService.create(createDto);
+  }
+
+  @Get()
+  @Public() // Allow public access for demo purposes
+  @ApiOperation({ 
+    summary: 'Get all items with filtering and pagination',
+    description: 'Retrieves items with optional filtering by category, status, and search term. Supports pagination.'
+  })
+  @ApiQuery({ name: 'category', required: false, description: 'Filter by category' })
+  @ApiQuery({ name: 'status', required: false, description: 'Filter by status' })
+  @ApiQuery({ name: 'search', required: false, description: 'Search in name and description' })
+  @ApiQuery({ name: 'page', required: false, description: 'Page number (default: 1)' })
+  @ApiQuery({ name: 'limit', required: false, description: 'Items per page (default: 10, max: 100)' })
+  async findAll(@Query() queryDto: HelloWorldQueryDto) {
+    return this.helloWorldService.findAll(queryDto);
+  }
+
+  @Get(':id')
+  @Public()
+  @ApiOperation({ summary: 'Get item by ID' })
+  @ApiResponse({ status: 200, description: 'Item found', type: HelloWorldItem })
+  @ApiResponse({ status: 404, description: 'Item not found' })
+  async findOne(@Param('id') id: string): Promise<HelloWorldItem> {
+    return this.helloWorldService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ 
+    summary: 'Update an item',
+    description: 'Updates an existing item. The materialized view is refreshed after the update.'
+  })
+  @ApiResponse({ status: 200, description: 'Item updated successfully', type: HelloWorldItem })
+  @ApiResponse({ status: 404, description: 'Item not found' })
+  async update(
+    @Param('id') id: string,
+    @Body() updateDto: UpdateHelloWorldItemDto,
+  ): Promise<HelloWorldItem> {
+    return this.helloWorldService.update(id, updateDto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ 
+    summary: 'Soft delete an item',
+    description: 'Soft deletes an item (sets deletedAt timestamp). The item can be restored later.'
+  })
+  @ApiResponse({ status: 204, description: 'Item deleted successfully' })
+  @ApiResponse({ status: 404, description: 'Item not found' })
+  async remove(@Param('id') id: string): Promise<void> {
+    return this.helloWorldService.remove(id);
+  }
+
+  @Post(':id/restore')
+  @ApiOperation({ 
+    summary: 'Restore a soft-deleted item',
+    description: 'Restores a previously soft-deleted item.'
+  })
+  @ApiResponse({ status: 200, description: 'Item restored successfully', type: HelloWorldItem })
+  @ApiResponse({ status: 404, description: 'Item not found or not deleted' })
+  async restore(@Param('id') id: string): Promise<HelloWorldItem> {
+    return this.helloWorldService.restore(id);
+  }
+
+  // ==================== Analytics Endpoints ====================
+
+  @Get('analytics/summary')
+  @Public()
+  @ApiOperation({ 
+    summary: 'Get real-time summary (Regular View)',
+    description: `
+      Gets real-time summary data using a regular database view.
+      
+      **Regular View Characteristics:**
+      - Always shows current data (real-time)
+      - Query executes every time it's accessed
+      - No storage overhead
+      - Good for: Current dashboards, small datasets, when data consistency is critical
+      - Performance: Slower for complex queries, depends on base table size
+    `
+  })
+  @ApiQuery({ name: 'category', required: false, description: 'Filter by specific category' })
+  async getSummary(@Query('category') category?: string) {
+    return this.helloWorldService.getSummary(category);
+  }
+
+  @Get('analytics/stats')
+  @Public()
+  @ApiOperation({ 
+    summary: 'Get analytics data (Materialized View)',
+    description: `
+      Gets analytics data from a materialized view for better performance.
+      
+      **Materialized View Characteristics:**
+      - Pre-computed and stored results
+      - Much faster query performance
+      - Data may be stale (refreshed hourly by default)
+      - Uses additional storage space
+      - Good for: Complex analytics, reporting, large datasets, read-heavy workloads
+      - Performance: Very fast reads, slower refresh process
+      
+      **Refresh Schedule:** Automatically refreshed every hour via cron job
+    `
+  })
+  @ApiQuery({ name: 'category', required: false, description: 'Filter by category' })
+  @ApiQuery({ name: 'startDate', required: false, description: 'Start date (YYYY-MM-DD)' })
+  @ApiQuery({ name: 'endDate', required: false, description: 'End date (YYYY-MM-DD)' })
+  async getStats(
+    @Query('category') category?: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
+  ) {
+    const start = startDate ? new Date(startDate) : undefined;
+    const end = endDate ? new Date(endDate) : undefined;
+    
+    return this.helloWorldService.getStats(category, start, end);
+  }
+
+  @Get('analytics/top-categories')
+  @Public()
+  @ApiOperation({ 
+    summary: 'Get top categories by item count',
+    description: 'Returns the top categories ordered by total item count using the real-time summary view.'
+  })
+  @ApiQuery({ name: 'limit', required: false, description: 'Number of categories to return (default: 5)' })
+  async getTopCategories(@Query('limit') limit?: number) {
+    return this.helloWorldService.getTopCategories(limit ? parseInt(limit.toString()) : 5);
+  }
+
+  @Get('analytics/trends')
+  @Public()
+  @ApiOperation({ 
+    summary: 'Get trend analysis',
+    description: 'Returns trend analysis showing daily changes over the specified period using materialized view data.'
+  })
+  @ApiQuery({ name: 'days', required: false, description: 'Number of days to analyze (default: 30)' })
+  async getTrendAnalysis(@Query('days') days?: number) {
+    return this.helloWorldService.getTrendAnalysis(days ? parseInt(days.toString()) : 30);
+  }
+
+  // ==================== Administrative Endpoints ====================
+
+  @Post('analytics/refresh')
+  @ApiOperation({ 
+    summary: 'Manually refresh materialized view',
+    description: `
+      Manually triggers a refresh of the materialized view to get the latest data.
+      
+      **When to use:**
+      - After bulk data operations
+      - When you need the latest analytics immediately
+      - For testing purposes
+      
+      **Note:** This operation can be expensive on large datasets and should be used sparingly in production.
+    `
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async refreshMaterializedView(): Promise<void> {
+    return this.helloWorldService.refreshMaterializedView();
+  }
+}

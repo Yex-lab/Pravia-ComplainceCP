@@ -1,0 +1,786 @@
+{
+  "nav": {
+    "dashboards": "Tableros",
+    "workspace": "Mi Espacio de Trabajo",
+    "resources": "Recursos",
+    "overview": "Cumplimiento",
+    "organization": "Organización",
+    "contacts": "Contactos",
+    "submissions": "Envíos",
+
+    "faqs": "Preguntas Frecuentes",
+    "administration": "Administración",
+    "user-management": "Gestión de Usuarios",
+    "users": "Usuarios",
+    "roles": "Roles",
+    "permissions": "Permisos",
+    "configuration": "Configuración",
+    "modules": "Módulos",
+    "groups": "Grupos",
+    "templates": "Plantillas",
+    "types": "Tipos",
+    "configurations": "Configuraciones"
+  },
+  "actions": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "create": "Crear",
+    "upload": "Cargar",
+    "uploading": "Cargando...",
+    "download": "Descargar",
+    "details": "Detalles",
+    "refresh": "Actualizar"
+  },
+  "header": {
+    "needHelp": "¿Necesitas ayuda?"
+  },
+  "landing": {
+    "hero": {
+      "title": {
+        "government": "Gobierno",
+        "compliance": "Cumplimiento,",
+        "simplified": "Simplificado"
+      },
+      "subtitle": "La plataforma de cumplimiento inteligente diseñada para departamentos y agencias estatales. Automatice flujos de trabajo, garantice el cumplimiento normativo y mantenga los más altos estándares de seguridad.",
+      "getStarted": "Comenzar"
+    },
+    "stats": {
+      "agencies": "Agencias Estatales",
+      "uptime": "SLA de Tiempo de Actividad",
+      "compliance": "Tasa de Cumplimiento",
+      "support": "Soporte"
+    },
+    "features": {
+      "security": {
+        "title": "Seguridad Avanzada",
+        "description": "Cifrado de nivel empresarial y protocolos de seguridad que cumplen con los estándares federales y garantizan la integridad de los datos en todos los departamentos."
+      },
+      "compliance": {
+        "title": "Cumplimiento Automatizado",
+        "description": "Monitoreo en tiempo real e informes automatizados que mantienen su departamento en cumplimiento con las regulaciones estatales y federales."
+      },
+      "audit": {
+        "title": "Registro de Auditoría",
+        "description": "Transparencia completa con registros de auditoría inmutables que rastrean cada acción y decisión para revisión regulatoria."
+      }
+    }
+  },
+  "auth": {
+    "callback": {
+      "processing": "Procesando autenticación..."
+    },
+    "updatePassword": {
+      "title": "Actualizar Contraseña",
+      "description": "Ingresa tu nueva contraseña a continuación.",
+      "descriptionInvite": "¡Bienvenido! Por favor crea una contraseña para tu cuenta.",
+      "preparing": "Preparando...",
+      "submit": "Continuar",
+      "loading": "Actualizando...",
+      "success": "Contraseña actualizada exitosamente",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "ejemplo@gmail.com",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "6+ caracteres",
+      "passwordHelperText": "Debe tener al menos 6 caracteres",
+      "confirmPasswordLabel": "Confirmar nueva contraseña",
+      "confirmPasswordPlaceholder": "6+ caracteres",
+      "confirmPasswordHelperText": "Vuelve a ingresar tu contraseña"
+    },
+    "signIn": {
+      "title": "Iniciar Sesión",
+      "description": "Inicia sesión en tu cuenta",
+      "heroTitle": "Bienvenido de nuevo",
+      "heroSubtitle": "Optimiza tus flujos de trabajo de cumplimiento con confianza",
+      "submit": "Continuar",
+      "loading": "Iniciando sesión...",
+      "signUpText": "Solicitar Acceso",
+      "forgotPasswordText": "¿Olvidaste tu contraseña?",
+      "features": [
+        {
+          "icon": "solar:shield-check-bold",
+          "iconBgColor": "#3B6D99",
+          "title": "Seguridad y Cumplimiento",
+          "description": "Proteja datos críticos con cifrado de nivel empresarial y controles de acceso seguros."
+        },
+        {
+          "icon": "solar:document-text-bold",
+          "iconBgColor": "#6B8E4E",
+          "title": "Flujos de Trabajo Automatizados",
+          "description": "Optimiza las presentaciones OIS con automatización inteligente y validación."
+        },
+        {
+          "icon": "solar:chart-2-bold",
+          "iconBgColor": "#6B5B95",
+          "title": "Análisis en Tiempo Real",
+          "description": "Rastrea el estado de presentación y métricas de cumplimiento con paneles en vivo."
+        },
+        {
+          "icon": "solar:users-group-rounded-bold",
+          "iconBgColor": "#D97B3A",
+          "title": "Colaboración en Equipo",
+          "description": "Coordina sin problemas entre departamentos con controles de acceso basados en roles."
+        }
+      ]
+    },
+    "signUp": {
+      "title": "Crear Cuenta",
+      "description": "Crea tu cuenta para comenzar.",
+      "submit": "Continuar",
+      "loading": "Creando cuenta...",
+      "signInText": "¿Ya tienes una cuenta?"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "description": "Por favor ingresa la dirección de correo asociada con tu cuenta y te enviaremos un enlace para restablecer tu contraseña.",
+      "submit": "Enviar solicitud",
+      "loading": "Enviando..."
+    },
+    "emailVerification": {
+      "title": "Revisa tu correo electrónico",
+      "description": "Te hemos enviado un enlace de verificación. Por favor revisa tu correo y haz clic en el enlace para verificar tu cuenta.",
+      "helpText": "¿No recibiste el correo? Revisa tu carpeta de spam o intenta registrarte nuevamente.",
+      "backButtonText": "Volver al inicio de sesión"
+    },
+    "verifyOtp": {
+      "title": "¡Por favor revisa tu correo electrónico!",
+      "description": "Hemos enviado un código de confirmación de 6 dígitos por correo electrónico. Por favor ingresa el código en el cuadro a continuación para verificar tu correo electrónico.",
+      "submit": "Verificar",
+      "loading": "Verificando...",
+      "resend": "Reenviar código",
+      "backLink": "Volver a iniciar sesión"
+    }
+  },
+  "landing": {
+    "hero": {
+      "overline": "Portal Seguro",
+      "title": {
+        "ois": "Gestión de Cumplimiento",
+        "portal": "Portal de Aplicación"
+      },
+      "subtitle": "Envíe de forma segura y eficiente sus documentos requeridos con nuestra interfaz guiada que garantiza la carga perfecta de todos los tipos de archivos.",
+      "register": "Registrarse",
+      "requestAccess": "Solicitar Acceso"
+    },
+    "platformBenefits": {
+      "title": "Beneficios de la Plataforma",
+      "subtitle": "Todo lo que necesita para una gestión de documentos sin problemas",
+      "features": {
+        "secureDocuments": {
+          "title": "Envío Seguro de Documentos",
+          "description": "Seguridad de nivel empresarial con cifrado de extremo a extremo para todos sus documentos."
+        },
+        "aiWorkflows": {
+          "title": "Flujos de Trabajo con IA",
+          "description": "La automatización y validación inteligente optimizan su proceso de envío."
+        },
+        "teamCollaboration": {
+          "title": "Colaboración en Equipo",
+          "description": "Administre miembros del equipo, rastree asignaciones y colabore sin problemas en toda su organización."
+        },
+        "realTimeTracking": {
+          "title": "Seguimiento en Tiempo Real",
+          "description": "Actualizaciones de estado en vivo y recordatorios inteligentes de plazos lo mantienen al día."
+        }
+      },
+      "startSubmission": "Comenzar"
+    }
+  },
+  "users": {
+    "title": "Usuarios",
+    "description": "Gestionar cuentas de usuario, permisos y controles de acceso",
+    "breadcrumb": {
+      "admin": "Administración",
+      "users": "Usuarios"
+    },
+    "add": "Agregar usuario",
+    "name": "Nombre",
+    "email": "Correo",
+    "role": "Rol",
+    "lastSignIn": "Último acceso",
+    "created": "Creado",
+    "status": "Estado",
+    "all": "Todos",
+    "active": "Activo",
+    "suspended": "Suspendido",
+    "verified": "Verificado",
+    "unverified": "No verificado",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "viewProfile": "Ver Perfil"
+  },
+  "submissions": {
+    "title": "Envíos",
+    "description": "Gestionar envíos de cumplimiento e informes",
+    "breadcrumb": {
+      "workspace": "Mi Espacio de Trabajo",
+      "submissions": "Envíos"
+    },
+    "upload": {
+      "title": "Cargar documento",
+      "description": "Carga tu documento principal y cualquier documento de soporte.",
+      "breadcrumb": "Cargar",
+
+      "alert": {
+        "title": "Antes de cargar",
+        "requiredFields": "Completa todos los campos obligatorios.",
+        "approvedFormat": "Solo se permiten archivos en formato PDF.",
+        "primaryRequired": "El documento principal es obligatorio.",
+        "encrypted": "No cargues documentos PDF encriptados.",
+        "confirmation": "Recibirás una confirmación una vez finalizada la carga."
+      },
+
+      "documentType": {
+        "label": "Tipo de documento",
+        "placeholder": "Selecciona un tipo de documento",
+        "helper": "Elige el tipo que corresponda al documento principal."
+      },
+
+      "documentTitle": {
+        "label": "Título del documento",
+        "placeholder": "Ej. SSP FY2025",
+        "helper": "Usa un título claro y descriptivo."
+      },
+
+      "primaryDocument": {
+        "title": "Documento principal",
+        "description": "Carga el documento principal del envío.",
+        "uploadTitle": "Cargar PDF",
+        "dragDrop": "Arrastra y suelta o haz clic para buscar",
+        "supportedFormat": "PDF • Máx. 90 MB"
+      },
+
+      "actions": {
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando...",
+        "create": "Crear",
+        "upload": "Cargar",
+        "uploading": "Cargando..."
+      },
+
+      "progress": {
+        "uploading": "Cargando...",
+        "lastUpload": "Última carga:"
+      },
+
+      "errors": {
+        "fileTooLarge": "El archivo es demasiado grande (máx. 90 MB).",
+        "invalidType": "Solo se permiten archivos PDF.",
+        "primaryRequired": "El documento principal es obligatorio.",
+        "typeRequired": "El tipo de documento es obligatorio.",
+        "titleRequired": "El título del documento es obligatorio.",
+        "uploadFailed": "Error al cargar el documento:"
+      },
+
+      "success": {
+        "uploaded": "Documento cargado correctamente el"
+      }
+    },
+    "filters": {
+      "all": "Todos",
+      "active": "Activo",
+      "overdue": "Vencido"
+    },
+    "stats": {
+      "active": "ACTIVO",
+      "overdue": "VENCIDO",
+      "approved": "APROBADO",
+      "pendingReview": "PENDIENTE",
+      "rejected": "RECHAZADO",
+      "thisMonth": "Este Mes"
+    },
+    "actions": {
+      "view": "Ver",
+      "documents": "Documentos de Apoyo",
+      "delete": "Eliminar"
+    },
+    "drawer": {
+      "title": "Envío de Cumplimiento",
+      "subtitle": "Ver documentos de apoyo y detalles del envío"
+    },
+    "delete": {
+      "title": "Eliminar Envío",
+      "message": "¿Está seguro de que desea eliminar {name}? Esto no se puede deshacer.",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar",
+      "deleting": "Eliminando..."
+    }
+  },
+  "compliance": {
+    "title": "Cumplimiento",
+    "description": "Monitorear el estado de cumplimiento, rastrear envíos y gestionar requisitos regulatorios",
+    "breadcrumb": {
+      "workspace": "Mi Espacio de Trabajo",
+      "compliance": "Cumplimiento"
+    },
+    "placeholder": "Contenido del panel de cumplimiento próximamente..."
+  },
+  "dashboard": {
+    "title": "Pravia Mule",
+    "subtitle": "Some Application"
+  },
+  "faqs": {
+    "title": "Preguntas Frecuentes",
+    "description": "Preguntas frecuentes y recursos útiles",
+    "breadcrumb": {
+      "resources": "Recursos",
+      "faqs": "Preguntas Frecuentes"
+    },
+    "placeholder": "Contenido de preguntas frecuentes próximamente...",
+    "questions": {
+      "submitDocuments": {
+        "question": "¿Cómo envío documentos de cumplimiento?",
+        "answer": "Navegue a la página de Envíos y siga el proceso paso a paso para cargar sus documentos requeridos. Puede acceder a esto a través del menú de navegación izquierdo."
+      },
+      "fileFormats": {
+        "question": "¿Qué formatos de archivo se aceptan?",
+        "answer": "Aceptamos formatos de archivo PDF. El tamaño máximo de archivo es de 90MB por documento. Asegúrese de que sus documentos sean claramente legibles y estén correctamente formateados."
+      },
+      "trackStatus": {
+        "question": "¿Cómo puedo rastrear el estado de mi envío?",
+        "answer": "Visite la página de Envíos para ver el estado actual de todos sus documentos enviados y cualquier acción requerida. Verá actualizaciones en tiempo real sobre el estado de procesamiento."
+      },
+      "recoveryPlan": {
+        "question": "¿Qué es un Plan de Recuperación Tecnológica?",
+        "answer": "Un Plan de Recuperación Tecnológica es un documento integral que describe procedimientos y estrategias para restaurar las operaciones tecnológicas después de una interrupción o desastre. Incluye pasos detallados para la recuperación de datos, restauración del sistema y continuidad del negocio para garantizar un tiempo de inactividad mínimo y pérdida de datos."
+      },
+      "planInstructions": {
+        "question": "¿Qué pasa si el Plan de Recuperación Tecnológica de una agencia no sigue las instrucciones?",
+        "answer": "Si el Plan de Recuperación Tecnológica de una agencia no sigue las instrucciones establecidas, el plan puede ser rechazado o requerir revisión. Las agencias deben revisar las pautas oficiales cuidadosamente y asegurar que todos los componentes requeridos estén incluidos. Contacte al soporte para asistencia en llevar su plan al cumplimiento con los estándares actuales."
+      },
+      "designationLetter": {
+        "question": "¿Las agencias están obligadas a enviar la Carta de Designación antes del 31 de enero?",
+        "answer": "Sí, las agencias están obligadas a enviar la Carta de Designación antes del 31 de enero de cada año, independientemente de si hay cambios en el personal designado. Además, si hay cambios en el personal designado durante el año, se debe enviar una Carta de Designación actualizada dentro de los 30 días del cambio."
+      }
+    },
+    "help": {
+      "title": "¿Necesita Ayuda Adicional?",
+      "description": "Si no puede encontrar la respuesta a su pregunta aquí, nuestro equipo de soporte está listo para ayudarle con cualquier consulta relacionada con el cumplimiento.",
+      "contactButton": "Contactar Soporte"
+    }
+  },
+
+  "organizations": {
+    "title": "Organización",
+    "information": "Información",
+    "description": "Gestionar organizaciones y sus requisitos de cumplimiento",
+    "breadcrumb": {
+      "workspace": "Mi Espacio de Trabajo",
+      "admin": "Administración",
+      "organizations": "Organizaciones"
+    },
+    "drawer": {
+      "primaryAddressSubtitle": "Actualice la información de la dirección principal de su organización",
+      "mailingAddressSubtitle": "Actualice la información de la dirección postal de su organización"
+    },
+    "placeholder": "Gestión de organizaciones próximamente...",
+    "add": "Agregar Organización",
+    "name": "Organización",
+    "type": "Tipo",
+    "industry": "Industria",
+    "size": "Tamaño",
+    "location": "Ubicación",
+    "status": "Estado",
+    "all": "Todos",
+    "clients": "Clientes",
+    "partners": "Socios",
+    "prospects": "Prospectos",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente",
+    "view": "Ver Detalles",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "fields": {
+      "organizationName": "Nombre de la Organización",
+      "acronym": "Acrónimo",
+      "govCode": "Código Gubernamental",
+      "govCodeHelper": "UID2",
+      "orgCode": "Código de Organización",
+      "orgCodeHelper": "UID1",
+      "parentOrganization": "Organización Matriz",
+      "county": "Condado",
+      "organizationPhone": "Teléfono de la Organización",
+      "website": "Sitio Web",
+      "fax": "Fax",
+      "primaryAddress": "Dirección Principal",
+      "mailingAddress": "Dirección Postal",
+      "addressLine1": "Línea de Dirección 1",
+      "addressLine2": "Línea de Dirección 2",
+      "city": "Ciudad",
+      "state": "Estado",
+      "zipCode": "Código Postal",
+      "postalCode": "Código Postal",
+      "sameAsPrimary": "Igual que la dirección principal",
+      "mailingAddressLine1": "Línea de Dirección Postal 1",
+      "mailingAddressLine2": "Línea de Dirección Postal 2",
+      "mailingCity": "Ciudad Postal",
+      "mailingState": "Estado Postal",
+      "mailingZipCode": "Código Postal",
+      "mailingCounty": "Condado Postal",
+      "primaryContact": "Contacto Principal",
+      "complianceDueDate": "Fecha de Vencimiento de Cumplimiento",
+      "socEmailAddress": "Dirección de Correo Electrónico SOC",
+      "streetLine1": "Línea de Calle 1",
+      "streetLine2": "Línea de Calle 2",
+      "stateProvince": "Estado/Provincia"
+    }
+  },
+  "contacts": {
+    "title": "Contactos",
+    "description": "Gestiona y organiza tus contactos comerciales",
+    "breadcrumb": {
+      "workspace": "Mi Espacio de Trabajo",
+      "contacts": "Contactos"
+    },
+    "add": "Agregar Contacto",
+    "columns": {
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono / Ext",
+      "mobile": "Móvil",
+      "jobTitle": "Cargo",
+      "department": "Departamento",
+      "status": "Estado"
+    },
+    "filters": {
+      "all": "Todos",
+      "myContact": "Mi Contacto",
+      "primary": "Principal",
+      "registered": "Registrado",
+      "pending": "Pendiente",
+      "notRegistered": "No Registrado",
+      "suspended": "Suspendido"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "view": "Ver Detalles",
+      "invite": "Invitar",
+      "ban": "Prohibir Usuario",
+      "unban": "Desbloquear Usuario",
+      "makePrimary": "Asignar Contacto Principal"
+    },
+    "search": "Buscar contactos...",
+    "identityStatus": {
+      "none": "No Registrado",
+      "invited": "Invitación Enviada",
+      "registered": "Usuario Activo",
+      "inactive": "Deshabilitado",
+      "blocked": "Bloqueado"
+    },
+    "status": {
+      "loading": "Cargando...",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "sending": "ENVIANDO..."
+    },
+    "form": {
+      "addTitle": "Agregar Nuevo Contacto",
+      "editTitle": "Editar Contacto",
+      "addSubtitle": "Crea un nuevo contacto con su información personal y profesional",
+      "editSubtitle": "Actualiza la información y detalles del contacto",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "jobTitle": "Cargo",
+      "businessPhone": "Teléfono Comercial",
+      "mobilePhone": "Teléfono Móvil",
+      "roles": "Roles",
+      "authorizedDocumentTypes": "Tipos de Documentos Autorizados",
+      "status": "Estado",
+      "cancel": "Cancelar",
+      "create": "Crear Contacto",
+      "update": "Actualizar Contacto",
+      "placeholders": {
+        "firstName": "Ingrese el nombre",
+        "lastName": "Ingrese el apellido",
+        "email": "Ingrese el correo electrónico",
+        "jobTitle": "Ingrese el cargo",
+        "businessPhone": "(555) 555-5555 12345",
+        "mobilePhone": "(555) 555-5555",
+        "roles": "Seleccione roles",
+        "authorizedDocumentTypes": "Seleccione tipos de documentos"
+      },
+      "validation": {
+        "rolesRequired": {
+          "title": "Rol Requerido",
+          "message": "Se debe seleccionar al menos un rol para usuarios registrados."
+        }
+      }
+    },
+    "delete": {
+      "title": "Eliminar Contacto",
+      "message": "¿Está seguro de que desea eliminar a {name}? Esta acción no se puede deshacer.",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
+    }
+  },
+  "dataTable": {
+    "search": "Buscar usuarios...",
+    "keyword": "Palabra clave",
+    "clear": "Limpiar",
+    "resultsFound": "Resultados Encontrados",
+    "dense": "Compacto",
+    "rowsPerPage": "Filas por página:",
+    "of": "de",
+    "noData": "No se encontraron datos"
+  },
+  "error": {
+    "goHome": "Ir al Inicio",
+    "notFound": {
+      "title": "Página No Encontrada",
+      "description": "Lo sentimos, no pudimos encontrar la página que buscas. ¿Quizás escribiste mal la URL? Asegúrate de verificar la ortografía."
+    },
+    "forbidden": {
+      "title": "Acceso Denegado",
+      "description": "No tienes permiso para acceder a esta página. Por favor contacta a tu administrador si crees que esto es un error."
+    },
+    "badRequest": {
+      "title": "Solicitud Incorrecta",
+      "description": "La solicitud no pudo ser entendida o faltaban parámetros requeridos. Por favor verifica tu entrada e intenta de nuevo."
+    },
+    "serverError": {
+      "title": "Servicio Temporalmente No Disponible",
+      "description": "Este servicio no está disponible temporalmente. Por favor intente de nuevo más tarde."
+    },
+    "initialization": {
+      "title": "Inicialización Fallida",
+      "description": "Encontramos algunos problemas al cargar los datos de tu aplicación.",
+      "retry": "Reintentar",
+      "userNotFound": "No se pudo cargar la información de tu cuenta. Por favor, intenta iniciar sesión nuevamente.",
+      "organizationNotFound": "Tu cuenta no está asociada con una organización. Por favor, contacta a soporte."
+    }
+  },
+  "access": {
+    "title": "Solicitar Acceso",
+    "welcomeMessage": "Bienvenido al portal de registro de Pravia Compliance. Para comenzar, seleccione su organización de la lista a continuación. Si su organización no está en la lista, puede enviar una solicitud para",
+    "createNewOrganization": "crear una nueva organización",
+    "selectOrganization": "Seleccionar Organización",
+    "contactInformation": "Información de Contacto",
+    "searchPlaceholder": "Escriba para buscar...",
+    "governmentCode": "Código Gubernamental",
+    "organizationCode": "Código de Organización",
+    "acronym": "Acrónimo",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "phoneNumber": "Número de Teléfono",
+    "businessPhone": "Teléfono Comercial (con extensión)",
+    "enterCaptcha": "Ingresar Captcha",
+    "captchaNoMatch": "El captcha no coincide",
+    "submitting": "Enviando...",
+    "submitRequest": "Enviar Solicitud",
+    "successMessage": "¡Solicitud de acceso enviada exitosamente!",
+    "errorLoadOrganizations": "Error al cargar organizaciones",
+    "errorSubmit": "Error al enviar la solicitud"
+  },
+  "register": {
+    "requestAccess": {
+      "title": "Solicitar Acceso",
+      "subtitle": "Envíe su solicitud de acceso a la organización",
+      "searchDescription": "Busque su organización por nombre",
+      "orgInfoDescription": "Confirme los detalles de la organización a continuación",
+      "contactDescription": "Proporcione su información de contacto",
+      "reviewDescription": "Revise su información y acepte los términos",
+      "welcome": "Bienvenido al portal de registro de Pravia Compliance.",
+      "selectOrganization": "Para comenzar, seleccione su organización de la lista a continuación.",
+      "notListed": "Si su organización no está en la lista, puede enviar una solicitud para",
+      "createNewOrganization": "registrar una nueva organización",
+      "steps": {
+        "search": "Buscar",
+        "orgInfo": "Organización",
+        "contact": "Contacto",
+        "review": "Revisar"
+      }
+    },
+    "title": "Registrar Organización",
+    "subtitle": "Envíe su solicitud de registro de organización. Una vez aprobada, recibirá credenciales de acceso.",
+    "selectType": {
+      "title": "Seleccionar Tipo de Organización",
+      "subtitle": "Envíe su solicitud de registro de organización. Una vez aprobada, recibirá credenciales de acceso. Los diferentes tipos de organizaciones tienen diferentes requisitos de registro.",
+      "info": "Los diferentes tipos de organizaciones tienen diferentes requisitos de registro."
+    },
+    "orgType": {
+      "state": "Agencia Estatal de California",
+      "stateDesc": "Departamentos y agencias del gobierno estatal",
+      "county": "Gobierno del Condado",
+      "countyDesc": "Organizaciones gubernamentales a nivel de condado",
+      "local": "Ciudad/Municipio",
+      "localDesc": "Entidades gubernamentales locales y de la ciudad",
+      "tribal": "Nación Tribal",
+      "tribalDesc": "Gobiernos tribales reconocidos federalmente"
+    },
+    "searchEntity": {
+      "title": "Buscar Entidad Estatal",
+      "stepLabel": "Buscar",
+      "description": "Busque su entidad estatal por nombre, acrónimo o código gubernamental",
+      "subtitle": "Buscar por nombre de organización, acrónimo o código gubernamental",
+      "placeholder": "Ingrese nombre, acrónimo o código gubernamental...",
+      "notListed": "Mi organización no está en la lista",
+      "noResults": "No se encontraron organizaciones",
+      "searching": "Buscando..."
+    },
+    "coreOrgInfo": {
+      "title": "Información de Entidad",
+      "stepLabel": "Información de Entidad",
+      "description": "Proporcione detalles de la organización incluyendo nombre, códigos y organización principal (opcional).",
+      "subtitleExisting": "Esta organización ya existe en el sistema. Los detalles principales no se pueden modificar.",
+      "subtitleNew": "Ingrese los detalles principales de su organización estatal",
+      "entityName": "Nombre de la Entidad",
+      "acronym": "Acrónimo",
+      "organizationCode": "Código de Organización",
+      "governmentCode": "Código Gubernamental",
+      "parentOrganization": "Organización Matriz"
+    },
+    "basicOrgInfo": {
+      "title": "Información de la Organización",
+      "stepLabel": "Organización",
+      "description": "Ingrese la información básica y detalles de su organización",
+      "subtitle": "Ingrese los detalles de su organización"
+    },
+    "additionalOrgInfo": {
+      "title": "Información de la Organización - Detalles Adicionales",
+      "stepLabel": "Info Adicional",
+      "description": "Agregue información complementaria sobre su organización",
+      "subtitle": "Proporcione información adicional sobre su organización",
+      "county": "Condado",
+      "organizationPhone": "Teléfono de la Organización",
+      "website": "Sitio Web",
+      "fax": "Fax"
+    },
+    "contactPerson": {
+      "title": "Información de la Persona de Contacto",
+      "stepLabel": "Contacto",
+      "description": "Proporcione los detalles de la persona de contacto principal para este registro",
+      "subtitle": "Esta persona será el contacto principal para el registro"
+    },
+    "primaryAddress": {
+      "title": "Dirección Principal",
+      "stepLabel": "Dirección",
+      "description": "Ingrese la dirección física de su organización",
+      "subtitle": "Ingrese la dirección principal de su organización"
+    },
+    "mailingAddress": {
+      "title": "Dirección Postal",
+      "stepLabel": "Correo",
+      "description": "Proporcione la dirección postal para correspondencia",
+      "subtitle": "Ingrese la dirección postal de su organización"
+    },
+    "review": {
+      "title": "Revisar y Enviar",
+      "stepLabel": "Revisar",
+      "description": "Revise toda la información antes de enviar su registro",
+      "subtitle": "Por favor revise su información antes de enviar",
+      "organizationInfo": "Información de la Organización",
+      "contactPerson": "Persona de Contacto",
+      "primaryAddress": "Dirección Principal",
+      "mailingAddress": "Dirección Postal",
+      "termsPrefix": "Acepto los",
+      "termsLink": "Términos y Condiciones"
+    },
+    "documents": {
+      "title": "Documentos de Apoyo",
+      "subtitle": "Cargue cualquier documento de apoyo (opcional)",
+      "uploadLabel": "Cargar Documentos",
+      "uploadHelper": "Esta función estará disponible pronto"
+    },
+    "success": {
+      "title": "Solicitud de Registro Enviada",
+      "message": "Su solicitud de registro ha sido enviada exitosamente. Recibirá un correo electrónico una vez que su solicitud haya sido revisada.",
+      "registrationId": "ID de Registro",
+      "status": "Estado",
+      "statusPending": "Pendiente"
+    },
+    "fields": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono",
+      "businessPhone": "Teléfono Comercial",
+      "acceptedTerms": "Acepto los términos y condiciones",
+      "acceptedPrivacyPolicy": "Acepto la política de privacidad"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "back": "Atrás",
+      "next": "Siguiente",
+      "submit": "Enviar Solicitud",
+      "submitting": "Enviando...",
+      "skip": "Omitir",
+      "uploadContinue": "Cargar y Continuar",
+      "returnToSignIn": "Volver a Iniciar Sesión"
+    },
+    "errors": {
+      "validationTitle": "Errores de Validación",
+      "validationMessage": "Por favor corrija los siguientes errores:",
+      "duplicateTitle": "La Organización Ya Existe",
+      "duplicateMessage": "Esta organización ya está registrada. Por favor contacte al administrador.",
+      "genericTitle": "Solicitud Fallida",
+      "genericMessage": "No se pudo completar la solicitud. Por favor intente de nuevo.",
+      "similarOrgsFound": "Organizaciones similares encontradas:"
+    },
+    "validation": {
+      "required": "Este campo es obligatorio",
+      "emailInvalid": "Correo electrónico inválido",
+      "phoneInvalid": "Formato de teléfono inválido",
+      "urlInvalid": "Formato de URL inválido",
+      "zipInvalid": "El código postal debe tener 5 dígitos",
+      "lettersOnly": "Solo se permiten letras"
+    }
+  },
+  "startup": {
+    "initializingRequest": "Inicializando solicitud. Por favor espere...",
+    "retrievingProfile": "Recuperando su perfil...",
+    "retrievingOrganization": "Recuperando organización...",
+    "retrievingOrganizationDetails": "Recuperando detalles de la organización...",
+    "retrievingContacts": "Recuperando contactos...",
+    "retrievingSubmissions": "Recuperando envíos...",
+    "retrievingDesignees": "Recuperando designados...",
+    "retrievingOrganizations": "Recuperando organizaciones..."
+  },
+  "tools": {
+    "menuItem": "Herramientas de Desarrollador",
+    "cleanup": {
+      "title": "Limpieza de Datos de Prueba",
+      "subtitle": "Eliminar datos de prueba del sistema",
+      "description": "Use estas herramientas para limpiar datos de prueba. Esta acción no se puede deshacer.",
+      "cleanupButton": "Limpiar Datos de Prueba",
+      "cleaning": "Limpiando...",
+      "success": "Datos de prueba limpiados exitosamente",
+      "error": "Error al limpiar datos de prueba"
+    }
+  },
+  "compliance": {
+    "title": "Panel de Cumplimiento",
+    "description": "Monitorear el estado de cumplimiento, rastrear envíos y gestionar requisitos regulatorios",
+    "dueDate": "Fecha de Vencimiento de Cumplimiento:",
+    "designees": {
+      "title": "Designados"
+    },
+    "submissions": {
+      "title": "Envíos"
+    }
+  },
+  "greeting": {
+    "morning": "Buenos días",
+    "afternoon": "Buenas tardes",
+    "evening": "Buenas noches"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "emailInvalid": "Dirección de correo electrónico inválida",
+    "phoneInvalid": "Formato de teléfono inválido",
+    "nameCharsOnly": "Solo se permiten letras, espacios, guiones y apóstrofes",
+    "addressCharsOnly": "Solo se permiten letras, números, espacios y puntuación común",
+    "postalCodeInvalid": "Formato de código postal inválido (ej., 12345 o 12345-6789)",
+    "maxLength": "Debe tener {{max}} caracteres o menos",
+    "minLength": "Debe tener al menos {{min}} caracteres",
+    "firstNameRequired": "El nombre es obligatorio",
+    "lastNameRequired": "El apellido es obligatorio",
+    "phoneMinDigits": "El número de teléfono debe tener al menos 10 dígitos"
+  }
+}

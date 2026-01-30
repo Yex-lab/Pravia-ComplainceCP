@@ -1,0 +1,12 @@
+{
+  "name": "component-converter-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "glob": "^10.3.0"
+  }
+}

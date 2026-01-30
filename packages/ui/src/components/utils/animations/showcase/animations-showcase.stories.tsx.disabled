@@ -1,0 +1,1020 @@
+// @ts-nocheck
+import type { Meta, StoryObj } from '@storybook/react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import Divider from '@mui/material/Divider';
+
+import { Iconify } from '../../iconify';
+import {
+  StandardNeuralNetwork,
+  HeroParticles,
+  HeroMorphingShape,
+  BackgroundMorphingElement,
+  CtaLiquidButton,
+  SubtleParticles,
+  FeatureGlassCard,
+  FeatureMorphingIcon,
+  ScrollProgress,
+  GradientBackground,
+  StatCounter,
+  FeatureIcon,
+  AnimatedIcon,
+  SimpleScrollReveal
+} from '../index';
+import { FeatureHoverCard, TestimonialHoverCard } from '../card-hover-effects';
+
+const meta: Meta<typeof StandardNeuralNetwork> = {
+  title: 'Docs/Animations Showcase',
+  component: StandardNeuralNetwork,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component: `
+# Animation Components Showcase
+
+A comprehensive collection of animation components built with Framer Motion for modern web applications.
+
+## Features
+
+- **Background Animations**: Neural networks, particle systems, and morphing shapes
+- **Interactive Elements**: Hover effects, liquid buttons, and glass morphism
+- **Scroll Animations**: Reveal effects and progress indicators  
+- **Icon Animations**: Bounce, scale, rotate, and morphing effects
+- **Counter Animations**: Smooth number counting with customizable formatting
+- **Gradient Backgrounds**: Multiple variants for different sections
+
+## Usage
+
+All components are built with performance in mind using Framer Motion's LazyMotion and optimized animations.
+
+\`\`\`tsx
+import { 
+  StandardNeuralNetwork, 
+  CtaLiquidButton, 
+  SimpleScrollReveal 
+} from '@asyml8/ui';
+
+// Background animation
+<StandardNeuralNetwork />
+
+// Interactive button
+<CtaLiquidButton>Click me</CtaLiquidButton>
+
+// Scroll reveal
+<SimpleScrollReveal direction="up">
+  <YourContent />
+</SimpleScrollReveal>
+\`\`\`
+        `,
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const AllAnimations: Story = {
+  name: 'Complete Showcase',
+  parameters: {
+    docs: {
+      description: {
+        story: 'A comprehensive showcase of all available animation components organized by category. Hover over elements to see interactions and scroll to see reveal animations.',
+      },
+      source: {
+        code: `
+<ScrollProgress showProgressBar progressHeight={3}>
+  <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Typography variant="h2" textAlign="center" gutterBottom>
+      Animation Components Showcase
+    </Typography>
+
+    {/* Background Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Background Components</Typography>
+      
+      <Stack spacing={4}>
+        <Box>
+          <Typography variant="h6" gutterBottom>Neural Network</Typography>
+          <Box sx={{ height: 300, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <StandardNeuralNetwork />
+          </Box>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>Hero Particles</Typography>
+          <Box sx={{ height: 300, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <HeroParticles />
+          </Box>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>Subtle Particles</Typography>
+          <Box sx={{ height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <SubtleParticles />
+          </Box>
+        </Box>
+      </Stack>
+    </Box>
+
+    {/* Shape Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Shape Components</Typography>
+      
+      <Stack direction="row" spacing={4} flexWrap="wrap">
+        <Box>
+          <Typography variant="h6" gutterBottom>Hero Morphing Shape</Typography>
+          <Box sx={{ width: 200, height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <HeroMorphingShape />
+          </Box>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>Background Morphing Element</Typography>
+          <Box sx={{ width: 200, height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <BackgroundMorphingElement />
+          </Box>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>Feature Morphing Icon</Typography>
+          <Box sx={{ width: 100, height: 100, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+            <FeatureMorphingIcon />
+          </Box>
+        </Box>
+      </Stack>
+    </Box>
+
+    {/* Button Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Button Components</Typography>
+      
+      <Stack direction="row" spacing={2} flexWrap="wrap">
+        <CtaLiquidButton>Liquid Button</CtaLiquidButton>
+        <CtaLiquidButton startIcon={<Iconify icon="solar:eye-bold" width={20} />}>
+          With Icon
+        </CtaLiquidButton>
+      </Stack>
+    </Box>
+
+    {/* Card Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Card Components</Typography>
+      
+      <Stack direction="row" spacing={4} flexWrap="wrap">
+        <FeatureHoverCard>
+          <FeatureGlassCard>
+            <Typography variant="h6" gutterBottom>Feature Glass Card</Typography>
+            <Typography variant="body2">Hover to see the effect</Typography>
+          </FeatureGlassCard>
+        </FeatureHoverCard>
+
+        <TestimonialHoverCard>
+          <Card sx={{ p: 3, width: 250 }}>
+            <Typography variant="h6" gutterBottom>Testimonial Card</Typography>
+            <Typography variant="body2">Hover to see the effect</Typography>
+          </Card>
+        </TestimonialHoverCard>
+      </Stack>
+    </Box>
+
+    {/* Icon Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Icon Components</Typography>
+      
+      <Stack direction="row" spacing={4} flexWrap="wrap">
+        <Box textAlign="center">
+          <Typography variant="h6" gutterBottom>Feature Icon (Bounce)</Typography>
+          <FeatureIcon
+            icon={<Iconify icon="solar:eye-bold" width={40} />}
+            animationType="bounce"
+          />
+        </Box>
+
+        <Box textAlign="center">
+          <Typography variant="h6" gutterBottom>Animated Icon (Scale)</Typography>
+          <AnimatedIcon animationType="scale" size={40}>
+            <Iconify icon="solar:heart-bold" width={40} />
+          </AnimatedIcon>
+        </Box>
+
+        <Box textAlign="center">
+          <Typography variant="h6" gutterBottom>Animated Icon (Rotate)</Typography>
+          <AnimatedIcon animationType="rotate" size={40}>
+            <Iconify icon="solar:settings-bold" width={40} />
+          </AnimatedIcon>
+        </Box>
+      </Stack>
+    </Box>
+
+    {/* Counter Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Counter Components</Typography>
+      
+      <Stack direction="row" spacing={4} justifyContent="center">
+        <StatCounter value={1000} suffix="+" label="Users" />
+        <StatCounter value={99.9} suffix="%" label="Uptime" decimals={1} />
+        <StatCounter value={50} suffix="K" label="Downloads" />
+      </Stack>
+    </Box>
+
+    {/* Scroll Reveal Components */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Scroll Reveal Components</Typography>
+      
+      <Stack spacing={4}>
+        <SimpleScrollReveal direction="up">
+          <Card sx={{ p: 3 }}>
+            <Typography variant="h6">Scroll Up Animation</Typography>
+            <Typography variant="body2">This card animates from bottom when scrolled into view</Typography>
+          </Card>
+        </SimpleScrollReveal>
+
+        <SimpleScrollReveal direction="left">
+          <Card sx={{ p: 3 }}>
+            <Typography variant="h6">Scroll Left Animation</Typography>
+            <Typography variant="body2">This card animates from right when scrolled into view</Typography>
+          </Card>
+        </SimpleScrollReveal>
+
+        <SimpleScrollReveal direction="fade">
+          <Card sx={{ p: 3 }}>
+            <Typography variant="h6">Fade Animation</Typography>
+            <Typography variant="body2">This card fades in when scrolled into view</Typography>
+          </Card>
+        </SimpleScrollReveal>
+      </Stack>
+    </Box>
+
+    {/* Background Variants */}
+    <Box sx={{ mb: 8 }}>
+      <Typography variant="h4" gutterBottom>Gradient Backgrounds</Typography>
+      
+      <Stack spacing={4}>
+        <GradientBackground variant="hero" sx={{ height: 200, borderRadius: 2 }}>
+          <Container>
+            <Typography variant="h5" color="white" textAlign="center">
+              Hero Gradient Background
+            </Typography>
+          </Container>
+        </GradientBackground>
+
+        <GradientBackground variant="section" sx={{ height: 150, borderRadius: 2 }}>
+          <Typography variant="h6" textAlign="center" sx={{ pt: 4 }}>
+            Section Gradient Background
+          </Typography>
+        </GradientBackground>
+
+        <GradientBackground variant="minimal" sx={{ height: 100, borderRadius: 2 }}>
+          <Typography variant="h6" textAlign="center" sx={{ pt: 3 }}>
+            Minimal Gradient Background
+          </Typography>
+        </GradientBackground>
+      </Stack>
+    </Box>
+  </Container>
+</ScrollProgress>
+        `,
+      },
+    },
+  },
+  render: () => (
+    <ScrollProgress showProgressBar progressHeight={3}>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h2" textAlign="center" gutterBottom>
+          Animation Components Showcase
+        </Typography>
+
+        {/* Background Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Background Components</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Animated backgrounds that add visual interest without overwhelming content
+          </Typography>
+          
+          <Stack spacing={4}>
+            <Box>
+              <Typography variant="h6" gutterBottom>Neural Network</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Animated neural network with connecting nodes and flowing data
+              </Typography>
+              <Box sx={{ height: 300, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <StandardNeuralNetwork />
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" gutterBottom>Hero Particles</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Dynamic particle system perfect for hero sections
+              </Typography>
+              <Box sx={{ height: 300, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <HeroParticles />
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" gutterBottom>Subtle Particles</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Gentle floating particles for background ambiance
+              </Typography>
+              <Box sx={{ height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <SubtleParticles />
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Shape Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Shape Components</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Morphing geometric shapes that create dynamic visual elements
+          </Typography>
+          
+          <Stack direction="row" spacing={4} flexWrap="wrap">
+            <Box>
+              <Typography variant="h6" gutterBottom>Hero Morphing Shape</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Large morphing blob for hero sections
+              </Typography>
+              <Box sx={{ width: 200, height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <HeroMorphingShape />
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" gutterBottom>Background Element</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Subtle morphing background element
+              </Typography>
+              <Box sx={{ width: 200, height: 200, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <BackgroundMorphingElement />
+              </Box>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" gutterBottom>Morphing Icon</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Small morphing shape for icons
+              </Typography>
+              <Box sx={{ width: 100, height: 100, position: 'relative', border: '1px solid', borderColor: 'divider', borderRadius: 2 }}>
+                <FeatureMorphingIcon />
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Button Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Interactive Buttons</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Engaging button animations with liquid and morphing effects
+          </Typography>
+          
+          <Stack direction="row" spacing={2} flexWrap="wrap">
+            <CtaLiquidButton>Liquid Button</CtaLiquidButton>
+            <CtaLiquidButton startIcon={<Iconify icon="solar:eye-bold" width={20} />}>
+              With Icon
+            </CtaLiquidButton>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Card Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Card Animations</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Hover effects and glass morphism for interactive cards
+          </Typography>
+          
+          <Stack direction="row" spacing={4} flexWrap="wrap">
+            <Box>
+              <Typography variant="h6" gutterBottom>Glass Morphism Card</Typography>
+              <FeatureHoverCard>
+                <FeatureGlassCard>
+                  <Box sx={{ p: 3, textAlign: 'center' }}>
+                    <Iconify icon="solar:eye-bold" width={40} sx={{ mb: 2, color: 'primary.main' }} />
+                    <Typography variant="h6" gutterBottom>Feature Card</Typography>
+                    <Typography variant="body2">Hover to see the glass effect</Typography>
+                  </Box>
+                </FeatureGlassCard>
+              </FeatureHoverCard>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" gutterBottom>Testimonial Hover Card</Typography>
+              <TestimonialHoverCard>
+                <Card sx={{ p: 3, width: 250 }}>
+                  <Typography variant="h6" gutterBottom>Testimonial</Typography>
+                  <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
+                    "This animation is smooth and engaging!"
+                  </Typography>
+                  <Typography variant="caption" sx={{ mt: 2, display: 'block' }}>
+                    - Happy User
+                  </Typography>
+                </Card>
+              </TestimonialHoverCard>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Icon Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Icon Animations</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Various animation types for icons and small elements
+          </Typography>
+          
+          <Stack direction="row" spacing={4} flexWrap="wrap">
+            <Box textAlign="center">
+              <Typography variant="h6" gutterBottom>Bounce Animation</Typography>
+              <FeatureIcon
+                icon={<Iconify icon="solar:eye-bold" width={40} />}
+                animationType="bounce"
+              />
+            </Box>
+
+            <Box textAlign="center">
+              <Typography variant="h6" gutterBottom>Scale Animation</Typography>
+              <AnimatedIcon animationType="scale" size={40}>
+                <Iconify icon="solar:heart-bold" width={40} />
+              </AnimatedIcon>
+            </Box>
+
+            <Box textAlign="center">
+              <Typography variant="h6" gutterBottom>Rotate Animation</Typography>
+              <AnimatedIcon animationType="rotate" size={40}>
+                <Iconify icon="solar:settings-bold" width={40} />
+              </AnimatedIcon>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Counter Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Animated Counters</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Smooth counting animations for statistics and metrics
+          </Typography>
+          
+          <Stack direction="row" spacing={4} justifyContent="center">
+            <StatCounter value={1000} suffix="+" label="Users" />
+            <StatCounter value={99.9} suffix="%" label="Uptime" decimals={1} />
+            <StatCounter value={50} suffix="K" label="Downloads" />
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Scroll Reveal Components */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Scroll Reveal Animations</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Elements that animate into view as you scroll
+          </Typography>
+          
+          <Stack spacing={4}>
+            <SimpleScrollReveal direction="up">
+              <Card sx={{ p: 3 }}>
+                <Typography variant="h6">Scroll Up Animation</Typography>
+                <Typography variant="body2">This card animates from bottom when scrolled into view</Typography>
+              </Card>
+            </SimpleScrollReveal>
+
+            <SimpleScrollReveal direction="left">
+              <Card sx={{ p: 3 }}>
+                <Typography variant="h6">Scroll Left Animation</Typography>
+                <Typography variant="body2">This card animates from right when scrolled into view</Typography>
+              </Card>
+            </SimpleScrollReveal>
+
+            <SimpleScrollReveal direction="fade">
+              <Card sx={{ p: 3 }}>
+                <Typography variant="h6">Fade Animation</Typography>
+                <Typography variant="body2">This card fades in when scrolled into view</Typography>
+              </Card>
+            </SimpleScrollReveal>
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 6 }} />
+
+        {/* Background Variants */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" gutterBottom>Gradient Backgrounds</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Animated gradient backgrounds for different sections
+          </Typography>
+          
+          <Stack spacing={4}>
+            <GradientBackground variant="hero" sx={{ height: 200, borderRadius: 2 }}>
+              <Container>
+                <Typography variant="h5" color="white" textAlign="center" sx={{ pt: 8 }}>
+                  Hero Gradient Background
+                </Typography>
+              </Container>
+            </GradientBackground>
+
+            <GradientBackground variant="section" sx={{ height: 150, borderRadius: 2 }}>
+              <Typography variant="h6" textAlign="center" sx={{ pt: 6 }}>
+                Section Gradient Background
+              </Typography>
+            </GradientBackground>
+
+            <GradientBackground variant="minimal" sx={{ height: 100, borderRadius: 2 }}>
+              <Typography variant="h6" textAlign="center" sx={{ pt: 4 }}>
+                Minimal Gradient Background
+              </Typography>
+            </GradientBackground>
+          </Stack>
+        </Box>
+      </Container>
+    </ScrollProgress>
+  ),
+};
+
+export const BackgroundAnimations: Story = {
+  name: 'Background Animations',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Background animation components that can be layered behind content. These animations are perfect for hero sections and full-screen backgrounds.',
+      },
+      source: {
+        code: `
+<Box sx={{ height: '100vh', position: 'relative' }}>
+  {/* Layer multiple background animations */}
+  <StandardNeuralNetwork />
+  <HeroParticles />
+  
+  {/* Content overlay with proper z-index */}
+  <Container sx={{ position: 'relative', zIndex: 2, pt: 10 }}>
+    <Typography variant="h3" textAlign="center" color="white">
+      Your Content Here
+    </Typography>
+    <Typography variant="body1" textAlign="center" color="white" sx={{ mt: 2, opacity: 0.8 }}>
+      Neural network and particle system combined for stunning backgrounds
+    </Typography>
+  </Container>
+</Box>
+        `,
+      },
+    },
+  },
+  render: () => (
+    <Box sx={{ height: '100vh', position: 'relative' }}>
+      <StandardNeuralNetwork />
+      <HeroParticles />
+      <Container sx={{ position: 'relative', zIndex: 2, pt: 10 }}>
+        <Typography variant="h3" textAlign="center" color="white">
+          Background Animations Only
+        </Typography>
+        <Typography variant="body1" textAlign="center" color="white" sx={{ mt: 2, opacity: 0.8 }}>
+          Neural network and particle system combined
+        </Typography>
+      </Container>
+    </Box>
+  ),
+};
+
+export const InteractiveElements: Story = {
+  name: 'Interactive Elements',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Interactive components with hover effects and animations. These elements respond to user interactions with smooth, engaging animations.',
+      },
+      source: {
+        code: `
+<Container sx={{ py: 10 }}>
+  <Typography variant="h3" textAlign="center" gutterBottom>
+    Interactive Elements
+  </Typography>
+  
+  <Stack spacing={6} alignItems="center">
+    {/* Liquid Buttons */}
+    <Box>
+      <Typography variant="h5" gutterBottom textAlign="center">
+        Liquid Buttons
+      </Typography>
+      <Stack direction="row" spacing={2} justifyContent="center">
+        <CtaLiquidButton>Default</CtaLiquidButton>
+        <CtaLiquidButton startIcon={<Iconify icon="solar:eye-bold" width={20} />}>
+          With Icon
+        </CtaLiquidButton>
+      </Stack>
+    </Box>
+
+    {/* Hover Cards */}
+    <Box>
+      <Typography variant="h5" gutterBottom textAlign="center">
+        Hover Cards
+      </Typography>
+      <Stack direction="row" spacing={4} justifyContent="center">
+        <FeatureHoverCard>
+          <FeatureGlassCard>
+            <Box sx={{ p: 3, textAlign: 'center' }}>
+              <Iconify icon="solar:eye-bold" width={40} sx={{ mb: 2, color: 'primary.main' }} />
+              <Typography variant="h6" gutterBottom>Feature Card</Typography>
+              <Typography variant="body2">Hover me!</Typography>
+            </Box>
+          </FeatureGlassCard>
+        </FeatureHoverCard>
+
+        <TestimonialHoverCard>
+          <Card sx={{ p: 3, width: 250 }}>
+            <Typography variant="h6" gutterBottom>Testimonial</Typography>
+            <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
+              "This is an amazing component!"
+            </Typography>
+            <Typography variant="caption" sx={{ mt: 2, display: 'block' }}>
+              - Happy User
+            </Typography>
+          </Card>
+        </TestimonialHoverCard>
+      </Stack>
+    </Box>
+  </Stack>
+</Container>
+        `,
+      },
+    },
+  },
+  render: () => (
+    <Container sx={{ py: 10 }}>
+      <Typography variant="h3" textAlign="center" gutterBottom>
+        Interactive Elements
+      </Typography>
+      
+      <Stack spacing={6} alignItems="center">
+        <Box>
+          <Typography variant="h5" gutterBottom textAlign="center">
+            Liquid Buttons
+          </Typography>
+          <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap">
+            <CtaLiquidButton>Default</CtaLiquidButton>
+            <CtaLiquidButton startIcon={<Iconify icon="solar:eye-bold" width={20} />}>
+              With Icon
+            </CtaLiquidButton>
+          </Stack>
+        </Box>
+
+        <Box>
+          <Typography variant="h5" gutterBottom textAlign="center">
+            Hover Cards
+          </Typography>
+          <Stack direction="row" spacing={4} justifyContent="center" flexWrap="wrap">
+            <FeatureHoverCard>
+              <FeatureGlassCard>
+                <Box sx={{ p: 3, textAlign: 'center' }}>
+                  <Iconify icon="solar:eye-bold" width={40} sx={{ mb: 2, color: 'primary.main' }} />
+                  <Typography variant="h6" gutterBottom>Feature Card</Typography>
+                  <Typography variant="body2">Hover me!</Typography>
+                </Box>
+              </FeatureGlassCard>
+            </FeatureHoverCard>
+
+            <TestimonialHoverCard>
+              <Card sx={{ p: 3, width: 250 }}>
+                <Typography variant="h6" gutterBottom>Testimonial</Typography>
+                <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
+                  "This is an amazing component!"
+                </Typography>
+                <Typography variant="caption" sx={{ mt: 2, display: 'block' }}>
+                  - Happy User
+                </Typography>
+              </Card>
+            </TestimonialHoverCard>
+          </Stack>
+        </Box>
+      </Stack>
+    </Container>
+  ),
+};
+
+export const ScrollAnimations: Story = {
+  name: 'Scroll Animations',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Components that animate based on scroll position and viewport intersection. These animations enhance the user experience by revealing content progressively.',
+      },
+      source: {
+        code: `
+<ScrollProgress showProgressBar progressHeight={3}>
+  <Container sx={{ py: 10 }}>
+    <Typography variant="h3" textAlign="center" gutterBottom>
+      Scroll Animations
+    </Typography>
+    <Typography variant="body1" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
+      Scroll down to see elements animate into view
+    </Typography>
+    
+    <Stack spacing={6}>
+      <SimpleScrollReveal direction="up">
+        <Card sx={{ p: 4 }}>
+          <Typography variant="h5" gutterBottom>Slide Up Animation</Typography>
+          <Typography variant="body1">
+            This card demonstrates the slide up animation when it enters the viewport.
+          </Typography>
+        </Card>
+      </SimpleScrollReveal>
+      
+      <SimpleScrollReveal direction="left">
+        <Card sx={{ p: 4 }}>
+          <Typography variant="h5" gutterBottom>Slide Left Animation</Typography>
+          <Typography variant="body1">
+            This card slides in from the right side during scrolling.
+          </Typography>
+        </Card>
+      </SimpleScrollReveal>
+      
+      <SimpleScrollReveal direction="fade">
+        <Card sx={{ p: 4 }}>
+          <Typography variant="h5" gutterBottom>Fade Animation</Typography>
+          <Typography variant="body1">
+            This card fades in smoothly without directional movement.
+          </Typography>
+        </Card>
+      </SimpleScrollReveal>
+    </Stack>
+  </Container>
+</ScrollProgress>
+        `,
+      },
+    },
+  },
+  render: () => (
+    <ScrollProgress showProgressBar progressHeight={3}>
+      <Container sx={{ py: 10 }}>
+        <Typography variant="h3" textAlign="center" gutterBottom>
+          Scroll Animations
+        </Typography>
+        <Typography variant="body1" textAlign="center" color="text.secondary" sx={{ mb: 6 }}>
+          Scroll down to see elements animate into view
+        </Typography>
+        
+        <Stack spacing={6}>
+          {Array.from({ length: 3 }, (_, i) => (
+            <SimpleScrollReveal key={i} direction={i === 0 ? 'up' : i === 1 ? 'left' : 'fade'}>
+              <Card sx={{ p: 4 }}>
+                <Typography variant="h5" gutterBottom>
+                  Animation {i + 1}: {i === 0 ? 'Slide Up' : i === 1 ? 'Slide Left' : 'Fade In'}
+                </Typography>
+                <Typography variant="body1">
+                  This card demonstrates the {i === 0 ? 'slide up' : i === 1 ? 'slide left' : 'fade in'} animation 
+                  when it enters the viewport during scrolling.
+                </Typography>
+              </Card>
+            </SimpleScrollReveal>
+          ))}
+          
+          <Box sx={{ height: '50vh' }} /> {/* Spacer for more scrolling */}
+          
+          <SimpleScrollReveal direction="up">
+            <Card sx={{ p: 4, textAlign: 'center' }}>
+              <Typography variant="h4" gutterBottom>
+                🎉 You made it to the end!
+              </Typography>
+              <Typography variant="body1">
+                All animations are optimized for performance using Framer Motion.
+              </Typography>
+            </Card>
+          </SimpleScrollReveal>
+        </Stack>
+      </Container>
+    </ScrollProgress>
+  ),
+};
+
+export const Docs: Story = {
+  render: () => (
+    <Box sx={{ p: 3, maxWidth: 800 }}>
+      <Typography variant="h4" gutterBottom>
+        Animation Components Documentation
+      </Typography>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Installation
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`npm install @asyml8/ui`}</code>
+      </Box>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Basic Usage
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`import { 
+  StandardNeuralNetwork, 
+  CtaLiquidButton, 
+  SimpleScrollReveal 
+} from '@asyml8/ui';
+
+// Background animation
+<StandardNeuralNetwork />
+
+// Interactive button
+<CtaLiquidButton>Click me</CtaLiquidButton>
+
+// Scroll reveal
+<SimpleScrollReveal direction="up">
+  <YourContent />
+</SimpleScrollReveal>`}</code>
+      </Box>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Background Animations
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`// Neural Network
+<StandardNeuralNetwork />
+
+// Particle Systems
+<HeroParticles />
+<SubtleParticles />
+
+// Morphing Shapes
+<HeroMorphingShape />
+<BackgroundMorphingElement />`}</code>
+      </Box>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Interactive Elements
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`// Liquid Button
+<CtaLiquidButton>Get Started</CtaLiquidButton>
+<CtaLiquidButton startIcon={<Icon />}>With Icon</CtaLiquidButton>
+
+// Glass Cards
+<FeatureHoverCard>
+  <FeatureGlassCard>
+    <Box sx={{ p: 3 }}>Your content</Box>
+  </FeatureGlassCard>
+</FeatureHoverCard>`}</code>
+      </Box>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Scroll Animations
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`// Reveal animations
+<SimpleScrollReveal direction="up">
+  <Card>Slides up from bottom</Card>
+</SimpleScrollReveal>
+
+<SimpleScrollReveal direction="left">
+  <Card>Slides in from right</Card>
+</SimpleScrollReveal>
+
+<SimpleScrollReveal direction="fade">
+  <Card>Fades in smoothly</Card>
+</SimpleScrollReveal>`}</code>
+      </Box>
+      
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Counters & Icons
+      </Typography>
+      <Box component="pre" sx={{ bgcolor: 'grey.100', p: 2, borderRadius: 1, overflow: 'auto' }}>
+        <code>{`// Animated counters
+<StatCounter value={1000} suffix="+" label="Users" />
+<StatCounter value={99.9} suffix="%" label="Uptime" decimals={1} />
+
+// Animated icons
+<FeatureIcon icon={<Icon />} animationType="bounce" />
+<AnimatedIcon animationType="scale" size={40}>
+  <Icon />
+</AnimatedIcon>`}</code>
+      </Box>
+    </Box>
+  ),
+};
+
+export const CountersAndIcons: Story = {
+  name: 'Counters & Icons',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Animated counters and icon components for statistics and visual elements. Perfect for showcasing metrics and adding visual interest to interfaces.',
+      },
+      source: {
+        code: `
+<Container sx={{ py: 10 }}>
+  <Typography variant="h3" textAlign="center" gutterBottom>
+    Counters & Icons
+  </Typography>
+  
+  <Stack spacing={8} alignItems="center">
+    {/* Animated Counters */}
+    <Box>
+      <Typography variant="h5" gutterBottom textAlign="center">
+        Animated Counters
+      </Typography>
+      <Stack direction="row" spacing={4} justifyContent="center">
+        <StatCounter value={1000} suffix="+" label="Users" />
+        <StatCounter value={99.9} suffix="%" label="Uptime" decimals={1} />
+        <StatCounter value={50} suffix="K" label="Downloads" />
+      </Stack>
+    </Box>
+
+    {/* Animated Icons */}
+    <Box>
+      <Typography variant="h5" gutterBottom textAlign="center">
+        Animated Icons
+      </Typography>
+      <Stack direction="row" spacing={6} justifyContent="center">
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>Bounce</Typography>
+          <FeatureIcon
+            icon={<Iconify icon="solar:eye-bold" width={40} />}
+            animationType="bounce"
+          />
+        </Box>
+
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>Scale</Typography>
+          <AnimatedIcon animationType="scale" size={40}>
+            <Iconify icon="solar:heart-bold" width={40} />
+          </AnimatedIcon>
+        </Box>
+
+        <Box textAlign="center">
+          <Typography variant="body2" gutterBottom>Rotate</Typography>
+          <AnimatedIcon animationType="rotate" size={40}>
+            <Iconify icon="solar:settings-bold" width={40} />
+          </AnimatedIcon>
+        </Box>
+      </Stack>
+    </Box>
+  </Stack>
+</Container>
+        `,
+      },
+    },
+  },
+  render: () => (
+    <Container sx={{ py: 10 }}>
+      <Typography variant="h3" textAlign="center" gutterBottom>
+        Counters & Icons
+      </Typography>
+      
+      <Stack spacing={8} alignItems="center">
+        <Box>
+          <Typography variant="h5" gutterBottom textAlign="center">
+            Animated Counters
+          </Typography>
+          <Stack direction="row" spacing={4} justifyContent="center">
+            <StatCounter value={1000} suffix="+" label="Users" />
+            <StatCounter value={99.9} suffix="%" label="Uptime" decimals={1} />
+            <StatCounter value={50} suffix="K" label="Downloads" />
+          </Stack>
+        </Box>
+
+        <Box>
+          <Typography variant="h5" gutterBottom textAlign="center">
+            Animated Icons
+          </Typography>
+          <Stack direction="row" spacing={6} justifyContent="center">
+            <Box textAlign="center">
+              <Typography variant="body2" gutterBottom>Bounce</Typography>
+              <FeatureIcon
+                icon={<Iconify icon="solar:eye-bold" width={40} />}
+                animationType="bounce"
+              />
+            </Box>
+
+            <Box textAlign="center">
+              <Typography variant="body2" gutterBottom>Scale</Typography>
+              <AnimatedIcon animationType="scale" size={40}>
+                <Iconify icon="solar:heart-bold" width={40} />
+              </AnimatedIcon>
+            </Box>
+
+            <Box textAlign="center">
+              <Typography variant="body2" gutterBottom>Rotate</Typography>
+              <AnimatedIcon animationType="rotate" size={40}>
+                <Iconify icon="solar:settings-bold" width={40} />
+              </AnimatedIcon>
+            </Box>
+          </Stack>
+        </Box>
+      </Stack>
+    </Container>
+  ),
+};

@@ -1,0 +1,108 @@
+{
+  "templates": {
+    "component": {
+      "name": "React Component",
+      "description": "Generate a TypeScript React component with props interface",
+      "category": "UI",
+      "files": ["{{name}}.tsx", "index.ts"],
+      "variables": {
+        "name": "Component name (PascalCase)",
+        "typescript": "Use TypeScript (default: true)",
+        "props": "Props interface type (default: 'interface')",
+        "styling": "Styling approach (default: 'emotion')"
+      },
+      "examples": [
+        {
+          "command": "pnpm codegen component MyButton",
+          "description": "Creates a basic React component"
+        },
+        {
+          "command": "pnpm codegen component UserCard --styling mui",
+          "description": "Creates a component with MUI styling"
+        }
+      ]
+    },
+    "service": {
+      "name": "API Service",
+      "description": "Generate a service class extending BaseService with CRUD operations",
+      "category": "API",
+      "files": ["{{name}}.service.ts"],
+      "variables": {
+        "name": "Service name (PascalCase)",
+        "apiEndpoint": "API endpoint path (default: '/api')",
+        "baseService": "Extend BaseService (default: true)"
+      },
+      "examples": [
+        {
+          "command": "pnpm codegen service User",
+          "description": "Creates a user service with default /api endpoint"
+        },
+        {
+          "command": "pnpm codegen service Product --apiEndpoint /api/v1",
+          "description": "Creates a product service with custom endpoint"
+        }
+      ]
+    },
+    "store": {
+      "name": "Query Store",
+      "description": "Generate a query store using createAppQueryStore with default config",
+      "category": "State",
+      "files": ["{{name}}.store.ts"],
+      "variables": {
+        "name": "Store name (camelCase)",
+        "queryStore": "Create query store (default: true)",
+        "formStore": "Create form store (default: false)"
+      },
+      "examples": [
+        {
+          "command": "pnpm codegen store products",
+          "description": "Creates a products query store"
+        }
+      ]
+    },
+    "entity-list-page": {
+      "name": "CRUD List Page",
+      "description": "Generate complete list page with service, store, Next.js page, DataTable component, and mock data",
+      "category": "Pages",
+      "files": [
+        "app/{{routePrefix}}/{{entityPlural}}/page.tsx",
+        "sections/{{routePrefix}}/{{entityPlural}}/view/{{entityPlural}}-list-view.tsx",
+        "sections/{{routePrefix}}/{{entityPlural}}/index.ts",
+        "services/{{kebabName}}.service.ts",
+        "stores/{{kebabEntityPlural}}.store.ts",
+        "_mock/{{kebabName}}.mock.ts"
+      ],
+      "variables": {
+        "name": "Entity name (PascalCase) - auto-converts to kebab-case for files",
+        "entityPlural": "Plural form (default: {{name}}s)",
+        "routePrefix": "Route prefix (default: '/admin')",
+        "apiEndpoint": "API endpoint (default: '/api')",
+        "hasView": "Include view action (default: true)",
+        "hasDelete": "Include delete action (default: true)",
+        "hasFilters": "Include filter tabs (default: true)",
+        "hasSearch": "Include search functionality (default: true)",
+        "generateMocks": "Generate mock data (default: true)"
+      },
+      "examples": [
+        {
+          "command": "pnpm codegen entity-list-page Product",
+          "description": "Creates admin products list page with mock data - works immediately!"
+        },
+        {
+          "command": "pnpm codegen entity-list-page BusinessType --routePrefix /workspace",
+          "description": "Creates business-type.service.ts, business-types.store.ts with kebab-case"
+        },
+        {
+          "command": "pnpm codegen entity-list-page UserProfile --routePrefix /dashboard/analytics",
+          "description": "Creates user-profile.service.ts in nested analytics section"
+        }
+      ]
+    }
+  },
+  "categories": {
+    "UI": "User interface components",
+    "API": "API integration and services", 
+    "State": "State management stores",
+    "Pages": "Complete page implementations"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "npm-packages-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for getting latest npm package versions and information",
+  "type": "module",
+  "main": "npm-packages-mcp.js",
+  "bin": {
+    "npm-packages-mcp": "./npm-packages-mcp.js"
+  },
+  "scripts": {
+    "start": "node ./npm-packages-mcp.js"
+  },
+  "keywords": [
+    "mcp",
+    "npm",
+    "packages",
+    "versions",
+    "nestjs",
+    "react",
+    "fastify"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "minimist": "^1.2.8"
+  }
+}

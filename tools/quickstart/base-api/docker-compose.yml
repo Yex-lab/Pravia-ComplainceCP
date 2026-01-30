@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  pravia-idp-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4002:4002"
+    environment:
+      - NODE_ENV=production
+      - PORT=4002
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4002/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

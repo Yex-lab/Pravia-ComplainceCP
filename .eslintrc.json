@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "unused-imports"],
+  "extends": [
+    "eslint:recommended",
+    "@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "import/order": ["error", { "groups": ["builtin", "external", "internal"] }]
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  }
+}

@@ -1,0 +1,73 @@
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsString, IsEnum, IsOptional, IsNumber, Min, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+
+export class CreateHelloWorldItemDto {
+  @ApiProperty({ description: 'Item name', example: 'Sample Item' })
+  @IsString()
+  @MaxLength(255)
+  name: string;
+
+  @ApiProperty({ description: 'Item description', example: 'This is a sample item', required: false })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @ApiProperty({ description: 'Item category', example: 'electronics' })
+  @IsString()
+  @MaxLength(100)
+  category: string;
+
+  @ApiProperty({ 
+    description: 'Item status', 
+    example: 'active',
+    enum: ['active', 'inactive', 'pending']
+  })
+  @IsEnum(['active', 'inactive', 'pending'])
+  status: 'active' | 'inactive' | 'pending';
+
+  @ApiProperty({ description: 'Item price', example: 29.99 })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @Transform(({ value }) => parseFloat(value))
+  price: number;
+
+  @ApiProperty({ description: 'Item quantity', example: 100 })
+  @IsNumber()
+  @Min(0)
+  @Transform(({ value }) => parseInt(value))
+  quantity: number;
+}
+
+export class UpdateHelloWorldItemDto extends PartialType(CreateHelloWorldItemDto) {}
+
+export class HelloWorldQueryDto {
+  @ApiProperty({ description: 'Filter by category', required: false })
+  @IsOptional()
+  @IsString()
+  category?: string;
+
+  @ApiProperty({ description: 'Filter by status', required: false })
+  @IsOptional()
+  @IsEnum(['active', 'inactive', 'pending'])
+  status?: 'active' | 'inactive' | 'pending';
+
+  @ApiProperty({ description: 'Page number', example: 1, required: false })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Transform(({ value }) => parseInt(value) || 1)
+  page?: number = 1;
+
+  @ApiProperty({ description: 'Items per page', example: 10, required: false })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Transform(({ value }) => Math.min(parseInt(value) || 10, 100))
+  limit?: number = 10;
+
+  @ApiProperty({ description: 'Search term', required: false })
+  @IsOptional()
+  @IsString()
+  search?: string;
+}

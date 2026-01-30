@@ -1,0 +1,37 @@
+{{#if includeSupabase}}
+import { Injectable, Logger } from '@nestjs/common';
+import { createClient, SupabaseClient, User as SupabaseUser } from '@supabase/supabase-js';
+
+@Injectable()
+export class SupabaseService {
+  private readonly logger = new Logger(SupabaseService.name);
+  private supabase: SupabaseClient;
+
+  constructor() {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Missing Supabase configuration');
+    }
+
+    this.supabase = createClient(supabaseUrl, supabaseKey);
+  }
+
+  async verifyToken(token: string): Promise<SupabaseUser | null> {
+    try {
+      const { data: { user }, error } = await this.supabase.auth.getUser(token);
+      
+      if (error) {
+        this.logger.warn(`Token verification failed: ${error.message}`);
+        return null;
+      }
+
+      return user;
+    } catch (error) {
+      this.logger.error('Error verifying token:', error);
+      return null;
+    }
+  }
+}
+{{/if}}

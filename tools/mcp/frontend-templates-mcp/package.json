@@ -1,0 +1,29 @@
+{
+  "name": "frontend-templates-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for exposing external frontend templates (React + TypeScript + MUI) to Amazon Q CLI.",
+  "type": "module",
+  "main": "frontend-templates-mcp.js",
+  "bin": {
+    "frontend-templates-mcp": "./frontend-templates-mcp.js"
+  },
+  "scripts": {
+    "start": "node ./frontend-templates-mcp.js --dir ../../mcp-templates/frontend/minimals",
+    "start:abs": "node ./frontend-templates-mcp.js --dir /Users/<your-username>/dev/mcp-templates/frontend/minimals"
+  },
+  "keywords": [
+    "mcp",
+    "amazon-q",
+    "cli",
+    "templates",
+    "react",
+    "typescript",
+    "mui"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "^2025.8.21",
+    "minimist": "^1.2.8"
+  }
+}

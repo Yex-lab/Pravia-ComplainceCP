@@ -1,0 +1,824 @@
+{
+  "nav": {
+    "dashboards": "Dashboards",
+    "workspace": "My Workspace",
+    "resources": "Resources",
+    "overview": "Compliance",
+    "organization": "Organization",
+    "contacts": "Contacts",
+    "submissions": "Submissions",
+
+    "faqs": "FAQs",
+    "administration": "Administration",
+    "user-management": "User Management",
+    "organizations": "Organizations",
+    "users": "Users",
+    "groups": "Groups",
+    "roles": "Roles",
+    "permissions": "Permissions",
+    "audit-logs": "Audit Logs",
+    "configuration": "Configuration",
+    "modules": "Modules",
+    "templates": "Templates",
+    "types": "Types",
+    "configurations": "Configurations"
+  },
+  "actions": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "create": "Create",
+    "upload": "Upload",
+    "uploading": "Uploading...",
+    "download": "Download",
+    "details": "Details",
+    "refresh": "Refresh"
+  },
+  "header": {
+    "needHelp": "Need help?"
+  },
+  "landing": {
+    "hero": {
+      "overline": "Secure Government Portal",
+      "title": {
+        "ois": "OIS Compliance",
+        "portal": "Submission Portal"
+      },
+      "subtitle": "Securely and efficiently submit your required compliance documents with our guided interface that ensures seamless upload of all requisite file types.",
+      "register": "Register",
+      "requestAccess": "Request Access"
+    },
+    "platformBenefits": {
+      "title": "Platform Benefits",
+      "subtitle": "Everything you need for seamless compliance",
+      "features": {
+        "secureDocuments": {
+          "title": "Secure Document Submission",
+          "description": "Enterprise-grade security with end-to-end encryption for all your compliance documents."
+        },
+        "aiWorkflows": {
+          "title": "AI-Powered Workflows",
+          "description": "Intelligent automation and validation reduce submission time by up to 75%."
+        },
+        "teamCollaboration": {
+          "title": "Team Collaboration",
+          "description": "Manage designees, track assignments, and collaborate seamlessly across your organization."
+        },
+        "realTimeTracking": {
+          "title": "Real-time Tracking",
+          "description": "Live status updates and intelligent deadline reminders keep you compliant."
+        }
+      },
+      "startSubmission": "Start Your Submission"
+    }
+  },
+  "auth": {
+    "callback": {
+      "processing": "Processing authentication..."
+    },
+    "updatePassword": {
+      "title": "Update Password",
+      "description": "Enter your new password below.",
+      "descriptionInvite": "Welcome! Please create a password for your account.",
+      "preparing": "Preparing...",
+      "submit": "Continue",
+      "loading": "Updating...",
+      "success": "Password updated successfully",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "example@gmail.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "6+ characters",
+      "passwordHelperText": "Must be at least 6 characters",
+      "confirmPasswordLabel": "Confirm new password",
+      "confirmPasswordPlaceholder": "6+ characters",
+      "confirmPasswordHelperText": "Re-enter your password"
+    },
+    "signIn": {
+      "title": "Sign In",
+      "description": "Sign into your account",
+      "heroTitle": "Welcome back",
+      "heroSubtitle": "Streamline your compliance workflows with confidence",
+      "submit": "Continue",
+      "loading": "Signing in...",
+      "signUpText": "Request Access",
+      "forgotPasswordText": "Forgot password?",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "6+ characters",
+      "noAccountText": "Don't have an account? ",
+      "errorMessage": "An error occurred",
+      "features": [
+        {
+          "icon": "solar:shield-check-bold",
+          "iconBgColor": "#3B6D99",
+          "title": "Security & Compliance",
+          "description": "Protect critical data with enterprise-grade encryption and secure access controls."
+        },
+        {
+          "icon": "solar:document-text-bold",
+          "iconBgColor": "#6B8E4E",
+          "title": "Automated Workflows",
+          "description": "Streamline OIS submissions with intelligent automation and validation."
+        },
+        {
+          "icon": "solar:chart-2-bold",
+          "iconBgColor": "#6B5B95",
+          "title": "Real-time Analytics",
+          "description": "Track submission status and compliance metrics with live dashboards."
+        },
+        {
+          "icon": "solar:users-group-rounded-bold",
+          "iconBgColor": "#D97B3A",
+          "title": "Team Collaboration",
+          "description": "Coordinate seamlessly across departments with role-based access controls."
+        }
+      ]
+    },
+    "signUp": {
+      "title": "Create Account",
+      "description": "Create your account to get started.",
+      "submit": "Continue",
+      "loading": "Creating account...",
+      "signInText": "Already have an account?"
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "description": "Please enter the email address associated with your account and we will email you a link to reset your password.",
+      "submit": "Send request",
+      "loading": "Sending..."
+    },
+    "emailVerification": {
+      "title": "Check your email",
+      "description": "We've sent you a verification link. Please check your email and click the link to verify your account.",
+      "helpText": "Didn't receive the email? Check your spam folder or try signing up again.",
+      "backButtonText": "Back to Sign In"
+    },
+    "verifyOtp": {
+      "title": "Please check your email!",
+      "description": "We've emailed a 6-digit confirmation code. Please enter the code in the box below to verify your email.",
+      "submit": "Verify",
+      "loading": "Verifying...",
+      "resend": "Resend code",
+      "backLink": "Return to sign in"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "description": "Manage user accounts, permissions, and access controls",
+    "breadcrumb": {
+      "admin": "Administration",
+      "users": "Users"
+    },
+    "add": "Add user",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "lastSignIn": "Last sign in",
+    "created": "Created",
+    "status": "Status",
+    "all": "All",
+    "active": "Active",
+    "suspended": "Suspended",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "edit": "Edit",
+    "delete": "Delete",
+    "viewProfile": "View Profile"
+  },
+  "submissions": {
+    "title": "Submissions",
+    "description": "Manage compliance submissions and reports",
+    "breadcrumb": {
+      "workspace": "My Workspace",
+      "submissions": "Submissions"
+    },
+    "columns": {
+      "title": "Title",
+      "type": "Type",
+      "submittedOn": "Submitted",
+      "signedBy": "Signed By",
+      "status": "Status"
+    },
+    "upload": {
+      "title": "Upload Document",
+      "description": "Upload your primary document and any supporting documents.",
+      "breadcrumb": "Upload",
+      "alert": {
+        "title": "Before you upload",
+        "requiredFields": "Fill out all required fields.",
+        "approvedFormat": "Only PDF files are allowed.",
+        "primaryRequired": "A primary document is required.",
+        "encrypted": "Do not upload encrypted PDFs.",
+        "confirmation": "You will get a confirmation after upload."
+      },
+      "documentType": {
+        "label": "Document type",
+        "placeholder": "Select a document type",
+        "helper": "Choose the type that matches your primary document."
+      },
+      "documentTitle": {
+        "label": "Document title",
+        "placeholder": "e.g., FY2025 SSP",
+        "helper": "Use a clear and descriptive title."
+      },
+      "primaryDocument": {
+        "title": "Primary document",
+        "description": "Upload the main submission document.",
+        "uploadTitle": "Upload PDF",
+        "dragDrop": "Drag & drop or click to browse",
+        "supportedFormat": "PDF • Max 90MB"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving...",
+        "create": "Create",
+        "upload": "Upload",
+        "uploading": "Uploading..."
+      },
+      "progress": {
+        "uploading": "Uploading...",
+        "lastUpload": "Last upload:"
+      },
+      "errors": {
+        "fileTooLarge": "File is too large (max 90MB).",
+        "invalidType": "Only PDF files are allowed.",
+        "primaryRequired": "Primary document is required.",
+        "typeRequired": "Document type is required.",
+        "titleRequired": "Document title is required.",
+        "uploadFailed": "Upload failed:"
+      },
+      "success": {
+        "uploaded": "Uploaded successfully at"
+      }
+    },
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "approved": "Approved",
+      "pendingReview": "Pending Review",
+      "overdue": "Overdue",
+      "rejected": "Rejected"
+    },
+    "stats": {
+      "active": "ACTIVE",
+      "overdue": "OVERDUE",
+      "approved": "APPROVED",
+      "pendingReview": "PENDING",
+      "rejected": "REJECTED",
+      "thisMonth": "This Month"
+    },
+    "actions": {
+      "view": "View",
+      "documents": "Supporting Documents",
+      "delete": "Delete"
+    },
+    "drawer": {
+      "title": "Supporting Documents",
+      "subtitle": "View supporting documents and submission details"
+    },
+    "delete": {
+      "title": "Delete Submission",
+      "message": "Are you sure you want to delete {name}? This cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "deleting": "Deleting..."
+    }
+  },
+  "compliance": {
+    "title": "Compliance",
+    "description": "Monitor compliance status, track submissions, and manage regulatory requirements",
+    "breadcrumb": {
+      "workspace": "My Workspace",
+      "compliance": "Compliance"
+    },
+    "placeholder": "Compliance dashboard content coming soon..."
+  },
+  "faqs": {
+    "title": "FAQs",
+    "description": "Frequently asked questions and helpful resources",
+    "breadcrumb": {
+      "resources": "Resources",
+      "faqs": "FAQs"
+    },
+    "placeholder": "FAQ content coming soon...",
+    "questions": {
+      "submitDocuments": {
+        "question": "How do I submit compliance documents?",
+        "answer": "Navigate to the Submissions page and follow the step-by-step process to upload your required documents. You can access this through the left navigation menu."
+      },
+      "fileFormats": {
+        "question": "What file formats are accepted?",
+        "answer": "We accept PDF file formats. Maximum file size is 90MB per document. Please ensure your documents are clearly readable and properly formatted."
+      },
+      "trackStatus": {
+        "question": "How can I track my submission status?",
+        "answer": "Visit the Submissions page to view the current status of all your submitted documents and any required actions. You'll see real-time updates on processing status."
+      },
+      "recoveryPlan": {
+        "question": "What is a Technology Recovery Plan?",
+        "answer": "A Technology Recovery Plan is a comprehensive document that outlines procedures and strategies for restoring technology operations following a disruption or disaster. It includes detailed steps for data recovery, system restoration, and business continuity to ensure minimal downtime and data loss."
+      },
+      "planInstructions": {
+        "question": "What if an agency's Technology Recovery Plan does not follow the instructions?",
+        "answer": "If an agency's Technology Recovery Plan does not follow the established instructions, the plan may be rejected or require revision. Agencies should review the official guidelines carefully and ensure all required components are included. Contact support for assistance in bringing your plan into compliance with current standards."
+      },
+      "designationLetter": {
+        "question": "Are agencies required to submit the Designation Letter by January 31st?",
+        "answer": "Yes, agencies are required to submit the Designation Letter by January 31st of each year, regardless of whether there are changes to the designated personnel. Additionally, if there are any changes to the designated personnel during the year, an updated Designation Letter must be submitted within 30 days of the change."
+      }
+    },
+    "help": {
+      "title": "Need Additional Help?",
+      "description": "If you can't find the answer to your question here, our support team is ready to assist you with any compliance-related inquiries.",
+      "contactButton": "Contact Support"
+    }
+  },
+
+  "organizations": {
+    "title": "Organization",
+    "information": "Information",
+    "description": "Manage organizations and their compliance requirements",
+    "breadcrumb": {
+      "workspace": "My Workspace",
+      "admin": "Administration",
+      "organizations": "Organizations"
+    },
+    "drawer": {
+      "primaryAddressSubtitle": "Update your organization's primary address information",
+      "mailingAddressSubtitle": "Update your organization's mailing address information"
+    },
+    "placeholder": "Organizations management coming soon...",
+    "add": "Add Organization",
+    "name": "Organization",
+    "type": "Type",
+    "industry": "Industry",
+    "size": "Size",
+    "location": "Location",
+    "status": "Status",
+    "all": "All",
+    "clients": "Clients",
+    "partners": "Partners",
+    "prospects": "Prospects",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "view": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "fields": {
+      "organizationName": "Organization Name",
+      "acronym": "Acronym",
+      "govCode": "Government Code",
+      "govCodeHelper": "UID2",
+      "orgCode": "Organization Code",
+      "orgCodeHelper": "UID1",
+      "parentOrganization": "Parent Organization",
+      "county": "County",
+      "organizationPhone": "Organization Phone",
+      "website": "Website",
+      "fax": "Fax",
+      "primaryAddress": "Primary Address",
+      "mailingAddress": "Mailing Address",
+      "addressLine1": "Address Line 1",
+      "addressLine2": "Address Line 2",
+      "city": "City",
+      "state": "State",
+      "zipCode": "ZIP Code",
+      "postalCode": "Postal Code",
+      "sameAsPrimary": "Same as primary",
+      "mailingAddressLine1": "Mailing Address Line 1",
+      "mailingAddressLine2": "Mailing Address Line 2",
+      "mailingCity": "Mailing City",
+      "mailingState": "Mailing State",
+      "mailingZipCode": "Mailing ZIP Code",
+      "mailingCounty": "Mailing County",
+      "primaryContact": "Primary Contact",
+      "complianceDueDate": "Compliance Due Date",
+      "socEmailAddress": "SOC Email Address",
+      "streetLine1": "Street Line 1",
+      "streetLine2": "Street Line 2",
+      "stateProvince": "State/Province"
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "description": "Manage and organize your business contacts",
+    "breadcrumb": {
+      "workspace": "My Workspace",
+      "contacts": "Contacts"
+    },
+    "add": "Add Contact",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone / Ext",
+      "mobile": "Mobile",
+      "jobTitle": "Job Title",
+      "department": "Department",
+      "status": "Status"
+    },
+    "filters": {
+      "all": "All",
+      "myContact": "My Contact",
+      "primary": "Primary",
+      "registered": "Registered",
+      "pending": "Pending",
+      "notRegistered": "Not Registered",
+      "suspended": "Suspended"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View Details",
+      "invite": "Invite",
+      "ban": "Ban User",
+      "unban": "Unban User",
+      "makePrimary": "Assign Primary Contact"
+    },
+    "search": "Search contacts...",
+    "identityStatus": {
+      "none": "Not Registered",
+      "invited": "Invitation Sent",
+      "registered": "Active User",
+      "inactive": "Disabled",
+      "blocked": "Blocked"
+    },
+    "status": {
+      "loading": "Loading...",
+      "active": "Active",
+      "inactive": "Inactive",
+      "sending": "SENDING..."
+    },
+    "form": {
+      "addTitle": "Add New Contact",
+      "editTitle": "Edit Contact",
+      "addSubtitle": "Create a new contact with their personal and professional information",
+      "editSubtitle": "Update contact information and details",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "jobTitle": "Job Title",
+      "businessPhone": "Business Phone",
+      "mobilePhone": "Mobile Phone",
+      "roles": "Roles",
+      "authorizedDocumentTypes": "Authorized Document Types",
+      "status": "Status",
+      "cancel": "Cancel",
+      "create": "Create Contact",
+      "update": "Update Contact",
+      "placeholders": {
+        "firstName": "Enter first name",
+        "lastName": "Enter last name",
+        "email": "Enter email address",
+        "jobTitle": "Enter job title",
+        "businessPhone": "(555) 555-5555 12345",
+        "mobilePhone": "(555) 555-5555",
+        "roles": "Select roles",
+        "authorizedDocumentTypes": "Select document types"
+      },
+      "validation": {
+        "rolesRequired": {
+          "title": "Role Required",
+          "message": "At least one role must be selected for registered users."
+        }
+      }
+    },
+    "delete": {
+      "title": "Delete Contact",
+      "message": "Are you sure you want to delete {name}? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "ban": {
+      "title": "Ban User",
+      "message": "Are you sure you want to ban {name}? They will no longer be able to access the system.",
+      "confirm": "Ban User",
+      "cancel": "Cancel",
+      "success": "{name} has been banned successfully",
+      "error": "Failed to ban user. Please try again."
+    },
+    "unban": {
+      "title": "Unban User",
+      "message": "Are you sure you want to unban {name}? They will regain access to the system.",
+      "confirm": "Unban User",
+      "cancel": "Cancel",
+      "success": "{name} has been unbanned successfully",
+      "error": "Failed to unban user. Please try again."
+    }
+  },
+  "dataTable": {
+    "search": "Search users...",
+    "keyword": "Keyword",
+    "clear": "Clear",
+    "resultsFound": "Results Found",
+    "dense": "Dense",
+    "rowsPerPage": "Rows per page:",
+    "of": "of",
+    "noData": "No data found"
+  },
+  "error": {
+    "goHome": "Go to Home",
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Sorry, we couldn't find the page you're looking for. Perhaps you've mistyped the URL? Be sure to check your spelling."
+    },
+    "forbidden": {
+      "title": "Access Denied",
+      "description": "You don't have permission to access this page. Please contact your administrator if you believe this is an error."
+    },
+    "badRequest": {
+      "title": "Bad Request",
+      "description": "The request could not be understood or was missing required parameters. Please check your input and try again."
+    },
+    "serverError": {
+      "title": "Service Temporarily Unavailable",
+      "description": "This service is temporarily unavailable. Please try again later."
+    },
+    "initialization": {
+      "title": "Initialization Failed",
+      "description": "We encountered some issues while loading your application data.",
+      "retry": "Retry",
+      "userNotFound": "Unable to load your account information. Please try signing in again.",
+      "organizationNotFound": "Your account is not associated with an organization. Please contact support."
+    }
+  },
+  "access": {
+    "title": "Request Access",
+    "welcomeMessage": "Welcome to the Pravia Compliance registration portal. To begin, please select your organization from the list below. If your organization is not listed, you may submit an application to",
+    "createNewOrganization": "register a new organization",
+    "selectOrganization": "Select Organization",
+    "contactInformation": "Contact Information",
+    "searchPlaceholder": "Type to search...",
+    "governmentCode": "Government Code",
+    "organizationCode": "Organization Code",
+    "acronym": "Acronym",
+    "next": "Next",
+    "back": "Back",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "businessPhone": "Business Phone (with extension)",
+    "enterCaptcha": "Enter Captcha",
+    "captchaNoMatch": "Captcha does not match",
+    "submitting": "Submitting...",
+    "submitRequest": "Submit Request",
+    "successMessage": "Access request submitted successfully!",
+    "errorLoadOrganizations": "Failed to load organizations",
+    "errorSubmit": "Failed to submit request"
+  },
+  "register": {
+    "requestAccess": {
+      "title": "Request Access",
+      "subtitle": "Submit your organization access request",
+      "searchDescription": "Search for your organization by name",
+      "documentsDescription": "Upload any required or supporting documents",
+      "orgInfoDescription": "Confirm the organization details below",
+      "contactDescription": "Provide your contact information",
+      "reviewDescription": "Review your information and accept terms",
+      "welcome": "Welcome to the Pravia Compliance registration portal.",
+      "selectOrganization": "To begin, please select your organization from the list below.",
+      "notListed": "If your organization is not listed, you may submit an application to",
+      "createNewOrganization": "register a new organization",
+      "steps": {
+        "search": "Search",
+        "documents": "Documents",
+        "orgInfo": "Organization",
+        "contact": "Contact",
+        "review": "Review"
+      }
+    },
+    "contact": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "businessPhone": "Business Phone",
+      "captcha": "Captcha",
+      "captchaPlaceholder": "Enter captcha code"
+    },
+    "title": "Register Organization",
+    "subtitle": "Submit your organization registration request. Once approved, you'll receive access credentials.",
+    "selectType": {
+      "title": "Select Organization Type",
+      "subtitle": "Submit your organization registration request. Once approved, you'll receive access credentials. Different organization types have different registration requirements.",
+      "info": "Different organization types have different registration requirements."
+    },
+    "orgType": {
+      "state": "California State Agency",
+      "stateDesc": "State government departments and agencies",
+      "county": "County Government",
+      "countyDesc": "County-level government organizations",
+      "local": "City/Municipality",
+      "localDesc": "City and local government entities",
+      "tribal": "Tribal Nation",
+      "tribalDesc": "Federally recognized tribal governments"
+    },
+    "searchEntity": {
+      "title": "Search for State Entity",
+      "stepLabel": "Search",
+      "description": "Search for your state entity by name, acronym, or government code",
+      "subtitle": "Search by organization name, acronym, or government code",
+      "placeholder": "Enter name, acronym, or gov code...",
+      "notListed": "My organization is not listed",
+      "noResults": "No organizations found",
+      "searching": "Searching..."
+    },
+    "coreOrgInfo": {
+      "title": "Entity Information",
+      "stepLabel": "Organization",
+      "description": "Provide organization details including name, codes and parent organization (optional).",
+      "subtitleExisting": "This organization already exists in the system. Core details cannot be modified.",
+      "subtitleNew": "Enter the core details for your state organization",
+      "entityName": "Entity Name",
+      "entityNameHelper": "2-150 characters (letters, numbers, spaces, and . , ' ( ) & - /)",
+      "acronym": "Acronym",
+      "acronymHelper": "2+ letters (A-Z)",
+      "organizationCode": "Organization Code",
+      "organizationCodeHelper": "2-10 characters (A-Z, 0-9)",
+      "governmentCode": "Government Code",
+      "governmentCodeHelper": "2-6 characters (A-Z, 0-9)",
+      "parentOrganization": "Parent Organization",
+      "searchingMessage": "Searching for similar organization names",
+      "searchingShort": "Searching...",
+      "typeToSearch": "Type at least 2 characters to search...",
+      "noResults": "No results were found. Please try again.",
+      "noOrganizations": "No organizations found",
+      "similarWarning": "There are {count} or more organizations that have a similar name. Please make sure your organization name is unique.",
+      "closeButton": "Close"
+    },
+    "basicOrgInfo": {
+      "title": "Organization Information",
+      "stepLabel": "Organization",
+      "description": "Enter your organization's basic information and details",
+      "subtitle": "Enter your organization details"
+    },
+    "additionalOrgInfo": {
+      "title": "Organization Information - Additional Details",
+      "stepLabel": "Information",
+      "description": "Add supplementary information about your organization",
+      "subtitle": "Provide additional information about your organization",
+      "county": "County",
+      "organizationPhone": "Organization Phone",
+      "website": "Website",
+      "fax": "Fax"
+    },
+    "contactPerson": {
+      "title": "Contact Person Information",
+      "stepLabel": "Contact",
+      "description": "Provide primary contact person details for this registration",
+      "subtitle": "This person will be the primary contact for the registration"
+    },
+    "documents": {
+      "title": "Upload Documents",
+      "stepLabel": "Documents",
+      "description": "Upload supporting documents for your registration",
+      "subtitle": "Upload any required or supporting documents",
+      "uploadDescription": "Upload any required or supporting documents",
+      "uploadButton": "Upload Files",
+      "noFiles": "No files uploaded yet",
+      "previousStep": "Go to previous document type",
+      "nextStep": "Continue to next document type",
+      "helperText": "Accepted format: PDF only (Max 10MB each)",
+      "removeFile": "Remove file"
+    },
+    "primaryAddress": {
+      "title": "Primary Address",
+      "stepLabel": "Address",
+      "description": "Enter the primary address for your organization",
+      "subtitle": "Enter the primary address for your organization"
+    },
+    "mailingAddress": {
+      "title": "Mailing Address",
+      "stepLabel": "Mailing",
+      "description": "Provide the mailing address for correspondence",
+      "subtitle": "Enter the mailing address for your organization"
+    },
+    "review": {
+      "title": "Review & Submit",
+      "stepLabel": "Review",
+      "description": "Review all information before submitting your registration",
+      "subtitle": "Review your information before submitting",
+      "organizationInfo": "Organization Information",
+      "contactPerson": "Contact Person",
+      "primaryAddress": "Primary Address",
+      "mailingAddress": "Mailing Address",
+      "termsPrefix": "I agree to the",
+      "termsLink": "Terms and Conditions"
+    },
+    "success": {
+      "title": "Registration Request Submitted",
+      "message": "Your registration request has been submitted successfully. You will receive an email once your request has been reviewed.",
+      "registrationId": "Registration ID",
+      "status": "Status",
+      "statusPending": "Pending"
+    },
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "businessPhone": "Business Phone",
+      "acceptedTerms": "I accept the terms and conditions",
+      "acceptedPrivacyPolicy": "I accept the privacy policy"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit Request",
+      "submitting": "Submitting...",
+      "skip": "Skip",
+      "uploadContinue": "Upload & Continue",
+      "returnToSignIn": "Return to Sign In"
+    },
+    "errors": {
+      "validationTitle": "Validation Errors",
+      "validationMessage": "Please correct the following errors:",
+      "duplicateTitle": "Organization Already Exists",
+      "duplicateMessage": "This organization is already registered. Please contact the administrator.",
+      "genericTitle": "Request Failed",
+      "genericMessage": "Unable to complete request. Please try again.",
+      "similarOrgsFound": "Similar organizations found:"
+    },
+    "validation": {
+      "required": "This field is required",
+      "emailInvalid": "Invalid email address",
+      "phoneInvalid": "Invalid phone format",
+      "urlInvalid": "Invalid URL format",
+      "zipInvalid": "ZIP code must be 5 digits",
+      "lettersOnly": "Only letters allowed"
+    }
+  },
+  "startup": {
+    "initializingRequest": "Initializing request. Please wait...",
+    "retrievingProfile": "Retrieving your profile...",
+    "retrievingOrganizationUsers": "Retrieving organization users...",
+    "retrievingRoles": "Retrieving roles...",
+    "retrievingOrganizationRoles": "Retrieving organization roles...",
+    "retrievingOrganizationDocuments": "Retrieving organization documents...",
+    "retrievingDocumentTypes": "Retrieving document types...",
+    "retrievingOrganization": "Retrieving organization...",
+    "retrievingOrganizationDetails": "Retrieving organization details...",
+    "retrievingContacts": "Retrieving contacts...",
+    "retrievingSubmissions": "Retrieving submissions...",
+    "retrievingDesignees": "Retrieving designees...",
+    "retrievingOrganizations": "Retrieving organizations..."
+  },
+  "tools": {
+    "menuItem": "Developer Tools",
+    "cleanup": {
+      "title": "Test Data Cleanup",
+      "subtitle": "Remove test data from the system",
+      "description": "Use these tools to clean up test data. This action cannot be undone.",
+      "cleanupButton": "Clean Up Test Data",
+      "cleaning": "Cleaning...",
+      "success": "Test data cleaned successfully",
+      "error": "Failed to clean test data"
+    }
+  },
+  "compliance": {
+    "title": "Compliance Dashboard",
+    "description": "Monitor compliance status, track submissions, and manage regulatory requirements",
+    "dueDate": "Compliance Due Date:",
+    "designees": {
+      "title": "Designees"
+    },
+    "submissions": {
+      "title": "Submissions"
+    }
+  },
+  "greeting": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening"
+  },
+  "footer": {
+    "description": "FARO Solutions delivers Pravia Compliance - an AI-powered platform that streamlines government regulatory compliance and risk management.",
+    "copyright": "© {{year}} FARO Solutions. All rights reserved.",
+    "support": {
+      "title": "Support",
+      "documentation": "Documentation"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "emailInvalid": "Invalid email address",
+    "phoneInvalid": "Invalid phone format",
+    "nameCharsOnly": "Only letters, spaces, hyphens and apostrophes allowed",
+    "addressCharsOnly": "Only letters, numbers, spaces, and common punctuation allowed",
+    "postalCodeInvalid": "Invalid ZIP code format (e.g., 12345 or 12345-6789)",
+    "maxLength": "Must be {{max}} characters or less",
+    "minLength": "Must be at least {{min}} characters",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "phoneMinDigits": "Phone number must have at least 10 digits"
+  }
+}

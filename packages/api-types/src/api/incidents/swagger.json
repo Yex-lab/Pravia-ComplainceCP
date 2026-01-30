@@ -1,0 +1,769 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": {
+      "get": {
+        "operationId": "AppController_getAppInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Application information retrieved successfully"
+          }
+        },
+        "summary": "Get application information",
+        "tags": [
+          "Application"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "SimpleHealthController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "System health status"
+          }
+        },
+        "summary": "Get overall system health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/health/memory": {
+      "get": {
+        "operationId": "SimpleHealthController_getMemoryHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Memory health status"
+          }
+        },
+        "summary": "Get memory health",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/incidents/by-account/{accountId}": {
+      "get": {
+        "operationId": "IncidentsController_getByAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/IncidentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get incidents by account ID",
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/api/incidents/by-contact/{contactId}": {
+      "get": {
+        "operationId": "IncidentsController_getByContact",
+        "parameters": [
+          {
+            "name": "contactId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/IncidentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get incidents by contact ID",
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/api/incidents/with-all-relations": {
+      "get": {
+        "operationId": "IncidentsController_findWithAllRelations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/IncidentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get incidents with account and contact relationships",
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/api/incidents": {
+      "get": {
+        "operationId": "IncidentsController_list",
+        "parameters": [
+          {
+            "name": "top",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "select",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityListResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/IncidentDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List all incidents",
+        "tags": [
+          "Incidents"
+        ]
+      },
+      "post": {
+        "operationId": "IncidentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIncidentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/IncidentDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create new incident",
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/api/incidents/{id}": {
+      "get": {
+        "operationId": "IncidentsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/IncidentDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get incident by ID",
+        "tags": [
+          "Incidents"
+        ]
+      },
+      "put": {
+        "operationId": "IncidentsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncidentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/IncidentDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update incident",
+        "tags": [
+          "Incidents"
+        ]
+      },
+      "delete": {
+        "operationId": "IncidentsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityResponse"
+                    },
+                    {
+                      "properties": {
+                        "body": {
+                          "$ref": "#/components/schemas/Object"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete incident",
+        "tags": [
+          "Incidents"
+        ]
+      }
+    },
+    "/api/admin/test-config": {
+      "get": {
+        "description": "Returns the current Dataverse configuration (without secrets)",
+        "operationId": "AdminController_testConfig",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Configuration retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Test configuration",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/admin/whoami": {
+      "get": {
+        "description": "Returns information about the current authenticated user",
+        "operationId": "AdminController_whoAmI",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get current user info",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/admin/environment": {
+      "get": {
+        "description": "Returns information about the Dataverse environment",
+        "operationId": "AdminController_getEnvironmentInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Environment information retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get environment info",
+        "tags": [
+          "Admin"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Pravia Incidents API",
+    "description": "Incidents Dataverse API for Pravia ecosystem",
+    "version": "1.0.28",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Application",
+      "description": "Basic application information and metadata endpoints"
+    },
+    {
+      "name": "Health",
+      "description": "System health monitoring endpoints"
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "Authorization",
+        "description": "Enter your JWT token",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "EntityListResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "OK"
+          },
+          "statusDescription": {
+            "type": "string",
+            "example": "The request succeeded"
+          },
+          "body": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "statusCode",
+          "statusMessage",
+          "body",
+          "message"
+        ]
+      },
+      "IncidentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Incident ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Incident name"
+          },
+          "stateCode": {
+            "type": "number",
+            "description": "State code"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "Status code"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "breachTypeReportedToAg": {
+            "type": "number",
+            "description": "Breach type reported to AG"
+          },
+          "cydo": {
+            "type": "number",
+            "description": "CYDO"
+          },
+          "dateOpened": {
+            "type": "string",
+            "description": "Date opened"
+          },
+          "dateClosed": {
+            "type": "string",
+            "description": "Date closed"
+          },
+          "incidentType": {
+            "type": "number",
+            "description": "Incident type"
+          },
+          "severityRating": {
+            "type": "number",
+            "description": "Severity rating"
+          },
+          "statusOfCase": {
+            "type": "number",
+            "description": "Status of case"
+          },
+          "customerEmail": {
+            "type": "string",
+            "description": "Customer email"
+          },
+          "customerPhone": {
+            "type": "string",
+            "description": "Customer phone"
+          },
+          "city": {
+            "type": "string",
+            "description": "City"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source"
+          },
+          "cyberInsurance": {
+            "type": "boolean",
+            "description": "Cyber insurance"
+          },
+          "selfReported": {
+            "type": "boolean",
+            "description": "Self reported"
+          },
+          "summaryCcir": {
+            "type": "string",
+            "description": "Summary CCIR"
+          },
+          "dataLossSummary": {
+            "type": "string",
+            "description": "Data loss summary"
+          },
+          "incidentDescription": {
+            "type": "string",
+            "description": "Incident description"
+          },
+          "account": {
+            "type": "object",
+            "description": "Account details"
+          },
+          "contact": {
+            "type": "object",
+            "description": "Contact details"
+          },
+          "createdOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created date"
+          },
+          "modifiedOn": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Modified date"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "EntityResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "OK"
+          },
+          "statusDescription": {
+            "type": "string",
+            "example": "The request succeeded"
+          },
+          "body": {
+            "type": "object",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "statusCode",
+          "statusMessage",
+          "body",
+          "message"
+        ]
+      },
+      "CreateIncidentDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Incident name"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account ID"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Contact ID"
+          },
+          "breachTypeReportedToAg": {
+            "type": "number",
+            "description": "Breach type reported to AG"
+          },
+          "cydo": {
+            "type": "number",
+            "description": "CYDO"
+          },
+          "incidentDescription": {
+            "type": "string",
+            "description": "Incident description (plain text)"
+          }
+        }
+      },
+      "UpdateIncidentDto": {
+        "type": "object",
+        "properties": {
+          "incidentType": {
+            "type": "number",
+            "description": "Incident type"
+          },
+          "incidentDescription": {
+            "type": "string",
+            "description": "Incident description (plain text)"
+          }
+        }
+      },
+      "Object": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}

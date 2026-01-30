@@ -1,0 +1,118 @@
+import { ViewEntity, ViewColumn } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+
+/**
+ * HelloWorldStatsView - Materialized View
+ * 
+ * This is a MATERIALIZED VIEW that stores pre-computed statistics and analytics.
+ * Materialized views physically store the query results and need to be refreshed periodically.
+ * 
+ * Characteristics:
+ * - Stores actual data (not virtual)
+ * - Much faster query performance
+ * - Data may be stale (depends on refresh frequency)
+ * - Requires storage space
+ * - Must be manually refreshed to get latest data
+ * 
+ * Use Cases:
+ * - Complex analytics and reporting
+ * - Dashboard data that doesn't need real-time updates
+ * - Heavy aggregations over large datasets
+ * - Historical trend analysis
+ * - Performance-critical queries
+ * 
+ * Refresh Strategies:
+ * - Manual: REFRESH MATERIALIZED VIEW helloworld_stats_materialized_view
+ * - Scheduled: Via cron job or application scheduler
+ * - Triggered: After significant data changes
+ * 
+ * Performance:
+ * - Very fast reads (pre-computed)
+ * - Slower writes (refresh process)
+ * - Additional storage overhead
+ * - Great for read-heavy workloads
+ */
+@ViewEntity({
+  name: 'helloworld_stats_materialized_view',
+  materialized: true,
+  expression: `
+    SELECT 
+      DATE_TRUNC('day', created_at) as date,
+      category,
+      status,
+      COUNT(*) as item_count,
+      SUM(price * quantity) as total_value,
+      AVG(price) as avg_price,
+      MIN(price) as min_price,
+      MAX(price) as max_price,
+      SUM(quantity) as total_quantity,
+      COUNT(DISTINCT DATE_TRUNC('hour', created_at)) as creation_hours,
+      -- Advanced analytics
+      PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price) as median_price,
+      STDDEV(price) as price_std_dev,
+      -- Trend indicators
+      LAG(COUNT(*)) OVER (PARTITION BY category ORDER BY DATE_TRUNC('day', created_at)) as prev_day_count,
+      COUNT(*) - LAG(COUNT(*)) OVER (PARTITION BY category ORDER BY DATE_TRUNC('day', created_at)) as daily_change
+    FROM helloworld_items 
+    WHERE deleted_at IS NULL
+    GROUP BY DATE_TRUNC('day', created_at), category, status
+    ORDER BY date DESC, category, status
+  `
+})
+export class HelloWorldStatsView {
+  @ApiProperty({ description: 'Date (truncated to day)' })
+  @ViewColumn()
+  date: Date;
+
+  @ApiProperty({ description: 'Item category' })
+  @ViewColumn()
+  category: string;
+
+  @ApiProperty({ description: 'Item status' })
+  @ViewColumn()
+  status: string;
+
+  @ApiProperty({ description: 'Number of items' })
+  @ViewColumn()
+  item_count: number;
+
+  @ApiProperty({ description: 'Total value (price * quantity)' })
+  @ViewColumn()
+  total_value: number;
+
+  @ApiProperty({ description: 'Average price' })
+  @ViewColumn()
+  avg_price: number;
+
+  @ApiProperty({ description: 'Minimum price' })
+  @ViewColumn()
+  min_price: number;
+
+  @ApiProperty({ description: 'Maximum price' })
+  @ViewColumn()
+  max_price: number;
+
+  @ApiProperty({ description: 'Total quantity' })
+  @ViewColumn()
+  total_quantity: number;
+
+  @ApiProperty({ description: 'Number of creation hours' })
+  @ViewColumn()
+  creation_hours: number;
+
+  @ApiProperty({ description: 'Median price' })
+  @ViewColumn()
+  median_price: number;
+
+  @ApiProperty({ description: 'Price standard deviation' })
+  @ViewColumn()
+  price_std_dev: number;
+
+  @ApiProperty({ description: 'Previous day count' })
+  @ViewColumn()
+  prev_day_count: number;
+
+  @ApiProperty({ description: 'Daily change from previous day' })
+  @ViewColumn()
+  daily_change: number;
+}
